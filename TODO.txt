@@ -1,0 +1,32 @@
+DONE :
+	# V0.0.1
+	- creer partie
+	- creer entreprise
+	- creer produit
+	- creer machine
+
+TODO :
+	# V0.0.1
+	- definir cout fixe de production des produits
+
+	# V0.0.2
+	- parametrer variables fixes
+	- parametrer variables flottantes
+	- LANCER PARTIE !
+
+	# V0.0.3
+	- creer un ordre
+	- modifier un ordre
+	- valider un ordre
+
+	# V0.0.4
+	- simuler un cycle annuel [avec tous les produits vendus]
+
+	# V0.0.5
+	- simuler un cycle annuel [avec produits pas tous vendus]
+
+	# V0.0.6
+	- generer les rapports annuels des entreprises
+
+	# V0.0.7
+	- visualiser les statistiques
