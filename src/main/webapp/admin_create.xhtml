@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+
+		<h1>Administration : Créer une partie</h1>
+		<h:form role="form">
+			<div class="form-group">
+				<label for="name">Nom de la partie</label><br />
+				<h:inputText styleClass="form-control" id="name"
+					value='#{createGameJsfBean.name}' />
+				<br /> <label for="password">Mot de passe</label><br />
+				<h:inputText styleClass="form-control" id="password"
+					value='#{createGameJsfBean.password}' />
+				<br />
+				<h:commandButton action="#{createGameJsfBean.create}"
+					styleClass="btn btn-primary" value="Créer les équipes" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

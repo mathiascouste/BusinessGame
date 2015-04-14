@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+
+		<h1>Administration : Les produits</h1>
+
+		<h2>Pour la partie #{createGameJsfBean.name}</h2>
+		<h3>
+			<u>Ajouter un produit :</u>
+		</h3>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Nom du produit</label>
+				<h:inputText styleClass="form-control" id="name"
+					value='#{createGameJsfBean.productName}' />
+				<label>Prix des matières premières</label>
+				<h:inputText styleClass="form-control" id="cost"
+					value='#{createGameJsfBean.productPrice}'>
+					<f:convertNumber longOnly="true" minimum="1" />
+				</h:inputText>
+				<label>Coût de la recherche</label>
+				<h:inputText styleClass="form-control" id="dev"
+					value='#{createGameJsfBean.productDev}'>
+					<f:convertNumber longOnly="true" minimum="0" />
+				</h:inputText>
+				<br />
+				<h:commandButton action="#{createGameJsfBean.addProduct}"
+					styleClass="btn btn-primary" value="Ajouter le produit" />
+			</div>
+		</h:form>
+
+		<label>Liste des équipes :</label>
+
+		<h:dataTable value="#{createGameJsfBean.products}" var="p"
+			styleClass="table table-striped">
+
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Nom</f:facet>
+				<!-- row record -->
+                                #{p.name}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Coût</f:facet>
+                                #{p.price}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Coût recherche</f:facet>
+                                #{p.devPrice}
+                        </h:column>
+		</h:dataTable>
+		<br />
+		<h:form role="form">
+			<div class="form-group">
+				<h:commandButton action="#{createGameJsfBean.goToMachine}"
+					styleClass="btn btn-primary" value="Créer des machines" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

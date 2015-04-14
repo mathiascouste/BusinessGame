@@ -1,0 +1,73 @@
+package bg.game.entities;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import bg.company.entities.Company;
+
+@Entity
+@Table(name = "GAME")
+public class Game implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private String password;
+	private int lapQuantity;
+	private List<Company> companies;
+	
+	public Game() {
+		this.name = "";
+		this.password = "";
+		this.lapQuantity = 0;
+		this.companies = new ArrayList<Company>();
+	}
+
+	@Id
+    @Column(name = "NAME")
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+    @Column(name = "PASSWORD")
+    @NotNull
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+    @Column(name = "LAP_QUANTITY")
+    @NotNull
+	public int getLapQuantity() {
+		return lapQuantity;
+	}
+
+	public void setLapQuantity(int lapQuantity) {
+		this.lapQuantity = lapQuantity;
+	}
+
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	public List<Company> getCompanies() {
+		return companies;
+	}
+
+	public void setCompanies(List<Company> companies) {
+		this.companies = companies;
+	}
+}

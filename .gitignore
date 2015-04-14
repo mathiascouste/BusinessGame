@@ -1,0 +1,28 @@
+*.class
+.gitignore~
+*.java.orig
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+
+# fichier du repertoire target
+J2E/target/*
+J2E/.classpath
+J2E/.project
+J2E/.settings/*
+J2E/target/.*
+
+client/target/.*
+client/target/*
+client/.project
+client/.settings/*
+client/.classpath

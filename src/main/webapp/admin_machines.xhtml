@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+
+		<h1>Administration : Les produits</h1>
+
+		<h2>Pour la partie #{createGameJsfBean.name}</h2>
+		<h3>
+			<u>Ajouter une machine :</u>
+		</h3>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Nom de la machine</label>
+				<h:inputText styleClass="form-control" id="name"
+					value='#{createGameJsfBean.machineName}' />
+				<label>Capacité de production</label>
+				<h:inputText styleClass="form-control" id="capa"
+					value='#{createGameJsfBean.machinePrice}'>
+					<f:convertNumber longOnly="true" minimum="1" />
+				</h:inputText>
+				<label>Espérance de vie</label>
+				<h:inputText styleClass="form-control" id="esp"
+					value='#{createGameJsfBean.machineEsperance}'>
+					<f:convertNumber longOnly="true" minimum="1" />
+				</h:inputText>
+				<label>Nombre d'employés nécessaires</label>
+				<h:inputText styleClass="form-control" id="emp"
+					value='#{createGameJsfBean.machineEmployee}'>
+					<f:convertNumber longOnly="true" minimum="1" />
+				</h:inputText>
+				<br />
+				<h:commandButton action="#{createGameJsfBean.addMachine}"
+					styleClass="btn btn-primary" value="Ajouter la machine" />
+			</div>
+		</h:form>
+
+		<label>Liste des équipes :</label>
+
+		<h:dataTable value="#{createGameJsfBean.machines}" var="m"
+			styleClass="table table-striped">
+
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Nom</f:facet>
+				<!-- row record -->
+                                #{m.name}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Prix</f:facet>
+                                #{m.price}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Capacité de production</f:facet>
+                                #{m.productionCapacity}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Employés nécessaire</f:facet>
+                                #{m.employeeNeeded}
+                        </h:column>
+
+			<h:column>
+				<f:facet name="header">Espérance de vie</f:facet>
+                                #{m.esperance}
+                        </h:column>
+		</h:dataTable>
+		<br />
+		<h:form role="form">
+			<div class="form-group">
+				<h:commandButton action="#{createGameJsfBean.goToFixData}"
+					styleClass="btn btn-primary" value="Régler la variables fixes" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
