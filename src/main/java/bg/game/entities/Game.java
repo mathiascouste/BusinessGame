@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,11 +22,13 @@ import bg.company.entities.Company;
 @Table(name = "GAME")
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private Long ident;
 	private String name;
 	private String password;
 	private int lapQuantity;
 	private List<Company> companies;
 	private FixedData fixedData;
+	private FloatingData floatingData;
 
 	public Game() {
 		this.name = "";
@@ -35,6 +39,16 @@ public class Game implements Serializable {
 	}
 
 	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getIdent() {
+		return this.ident;
+	}
+
+	public void setIdent(Long ident) {
+		this.ident = ident;
+	}
+
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
@@ -80,5 +94,14 @@ public class Game implements Serializable {
 
 	public void setFixedData(FixedData fixedData) {
 		this.fixedData = fixedData;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public FloatingData getFloatingData() {
+		return floatingData;
+	}
+
+	public void setFloatingData(FloatingData floatingData) {
+		this.floatingData = floatingData;
 	}
 }

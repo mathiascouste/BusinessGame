@@ -21,17 +21,17 @@
 				<label>Capacité de production</label>
 				<h:inputText styleClass="form-control" id="capa"
 					value='#{createGameJsfBean.machinePrice}'>
-					<f:convertNumber longOnly="true" minimum="1" />
+					<f:convertNumber longOnly="true" minimum="0" />
 				</h:inputText>
 				<label>Espérance de vie</label>
 				<h:inputText styleClass="form-control" id="esp"
 					value='#{createGameJsfBean.machineEsperance}'>
-					<f:convertNumber longOnly="true" minimum="1" />
+					<f:convertNumber longOnly="true" minimum="0" />
 				</h:inputText>
 				<label>Nombre d'employés nécessaires</label>
 				<h:inputText styleClass="form-control" id="emp"
 					value='#{createGameJsfBean.machineEmployee}'>
-					<f:convertNumber longOnly="true" minimum="1" />
+					<f:convertNumber longOnly="true" minimum="0" />
 				</h:inputText>
 				<br />
 				<h:commandButton action="#{createGameJsfBean.addMachine}"

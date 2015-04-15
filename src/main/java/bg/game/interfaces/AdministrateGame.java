@@ -3,10 +3,12 @@ package bg.game.interfaces;
 import javax.ejb.Local;
 
 import bg.game.entities.FixedData;
+import bg.game.entities.FloatingData;
 import bg.game.entities.Game;
 
 @Local
 public interface AdministrateGame {
 	public Game createGame(String name, String password);
 	public FixedData createFixedData();
+	public FloatingData createFloatingData();
 }

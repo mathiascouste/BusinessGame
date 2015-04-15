@@ -49,7 +49,7 @@ public class FixedData {
 		this.population = population;
 	}
 
-    @Column(name = "START_TRESORY")
+    @Column(name = "START_TRESORY", columnDefinition = "Double")
     @NotNull
 	public double getStartTresory() {
 		return startTresory;
@@ -59,7 +59,7 @@ public class FixedData {
 		this.startTresory = startTresory;
 	}
 
-    @Column(name = "TAX")
+    @Column(name = "TAX", columnDefinition = "Double")
     @NotNull
 	public double getTax() {
 		return tax;
@@ -69,7 +69,7 @@ public class FixedData {
 		this.tax = tax;
 	}
 
-    @Column(name = "INTEREST")
+    @Column(name = "INTEREST", columnDefinition = "Double")
     @NotNull
 	public double getInterest() {
 		return interest;

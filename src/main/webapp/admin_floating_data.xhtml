@@ -6,9 +6,33 @@
 	template="/templates/default.xhtml">
 
 	<ui:define name="content">
-		
+
 		<h1>Administration : Les données variables</h1>
+
+		<h2>Pour la partie #{createGameJsfBean.name}</h2>
+		<h3>
+			<u>Parametrer la partie :</u>
+		</h3>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Coefficient d'impact de la qualité sur les achats</label>
+				<h:inputText styleClass="form-control" id="quality"
+					value='#{createGameJsfBean.floatingQuality}' />
+				<br /> <label>Coefficient d'impact de la publicité sur les
+					achats</label>
+				<h:inputText styleClass="form-control" id="addvertising"
+					value='#{createGameJsfBean.floatingAdvertising}' />
+				<br /> <label>Coefficient d'impact de la fidélité sur les
+					achats</label>
+				<h:inputText styleClass="form-control" id="fidelity"
+					value='#{createGameJsfBean.floatingFidelity}' />
+				<br />
+
+				<h:commandButton action="#{createGameJsfBean.validateFloatting}"
+					styleClass="btn btn-primary"
+					value="Aller au résumé de la partie et lancer la partie" />
+			</div>
+		</h:form>
 
 	</ui:define>
 </ui:composition>
-	

@@ -15,6 +15,7 @@ import bg.company.interfaces.CompanyManager;
 import bg.company.interfaces.MachineManager;
 import bg.company.interfaces.ProductManager;
 import bg.game.entities.FixedData;
+import bg.game.entities.FloatingData;
 import bg.game.entities.Game;
 import bg.game.interfaces.AdministrateGame;
 
@@ -54,7 +55,6 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le mot de passe de la partie est vide";
 			return "fail";
 		}
-
 		if ((this.game = gameAdministrator.createGame(this.name, this.password)) == null) {
 			this.errorMessage = "Le nom de la partie existe déjà ou le mot de passe est mauvais";
 			return "fail";
@@ -160,7 +160,7 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le nom du produit est vide";
 			return "fail";
 		}
-		if (productPrice < 1) {
+		if (productPrice < 0) {
 			this.errorMessage = "Le prix du produit est trop bas";
 			return "fail";
 		}
@@ -248,7 +248,7 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le nom du produit est vide";
 			return "fail";
 		}
-		if (productPrice < 1) {
+		if (productPrice < 0) {
 			this.errorMessage = "Le prix du produit est trop bas";
 			return "fail";
 		}
@@ -256,7 +256,7 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le coût de développement du produit est trop bas";
 			return "fail";
 		}
-		if (machineEmployee < 1) {
+		if (machineEmployee < 0) {
 			this.errorMessage = "Le coût de développement du produit est trop bas";
 			return "fail";
 		}
@@ -425,5 +425,62 @@ public class CreateGameJsfBean implements Serializable {
 
 	public void setFixedMinimalSalary(int fixedMinimalSalary) {
 		this.fixedMinimalSalary = fixedMinimalSalary;
+	}
+
+
+	/*****************************/
+	/**** Floating variables *****/
+	/*****************************/
+	private double floatingQuality = 0;
+	private double floatingAdvertising = 0;
+	private double floatingFidelity = 0;
+	
+	public String validateFloatting() {
+		if(floatingQuality < 0 || floatingQuality > 1) {
+			this.errorMessage = "Coefficient de qualité négatif ou suppérieur à 1";
+			return "fail";
+		}
+		if(floatingAdvertising < 0 || floatingAdvertising > 1) {
+			this.errorMessage = "Coefficient de publicité négatif ou suppérieur à 1";
+			return "fail";
+		}
+		if(floatingFidelity < 0 || floatingFidelity > 1) {
+			this.errorMessage = "Coefficient de fidelité négatif ou suppérieur à 1";
+			return "fail";
+		}
+		
+		FloatingData floatingData = gameAdministrator.createFloatingData();
+		floatingData.setAdvertising(floatingAdvertising);
+		floatingData.setFidelity(floatingFidelity);
+		floatingData.setQuality(floatingQuality);
+
+		this.game.setFloatingData(floatingData);
+		
+		return "success";
+		
+	}
+
+	public double getFloatingQuality() {
+		return floatingQuality;
+	}
+
+	public void setFloatingQuality(double floatingQuality) {
+		this.floatingQuality = floatingQuality;
+	}
+
+	public double getFloatingAdvertising() {
+		return floatingAdvertising;
+	}
+
+	public void setFloatingAdvertising(double floatingAdvertising) {
+		this.floatingAdvertising = floatingAdvertising;
+	}
+
+	public double getFloatingFidelity() {
+		return floatingFidelity;
+	}
+
+	public void setFloatingFidelity(double floatingFidelity) {
+		this.floatingFidelity = floatingFidelity;
 	}
 }

@@ -8,9 +8,10 @@ DONE :
 
 	# V0.0.2
 	- parametrer variables fixes
+	- parametrer variables flottantes (valeur par défaut et non variable)
+
 TODO :
 	# V0.0.2
-	- parametrer variables flottantes (valeur par défaut et non variable)
 	- LANCER PARTIE !
 
 	# V0.0.3
