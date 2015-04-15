@@ -20,6 +20,7 @@ public class Product implements Serializable {
 	private int devPrice;
 	private int advertising;
 	private int quality;
+	private int fixedProductionCost;
 	
 	public Product() {
 		this.name = "";
@@ -27,6 +28,7 @@ public class Product implements Serializable {
 		this.devPrice = 0;
 		this.advertising = 0;
 		this.quality = 0;
+		this.fixedProductionCost = 0;
 	}
 
 
@@ -88,5 +90,15 @@ public class Product implements Serializable {
 
 	public void setQuality(int quality) {
 		this.quality = quality;
+	}
+
+    @Column(name = "FIXED_PRODUCTION_COST")
+    @NotNull
+	public int getFixedProductionCost() {
+		return fixedProductionCost;
+	}
+
+	public void setFixedProductionCost(int fixedProductionCost) {
+		this.fixedProductionCost = fixedProductionCost;
 	}
 }

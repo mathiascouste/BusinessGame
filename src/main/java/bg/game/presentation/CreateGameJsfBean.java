@@ -14,6 +14,7 @@ import bg.company.entities.Product;
 import bg.company.interfaces.CompanyManager;
 import bg.company.interfaces.MachineManager;
 import bg.company.interfaces.ProductManager;
+import bg.game.entities.FixedData;
 import bg.game.entities.Game;
 import bg.game.interfaces.AdministrateGame;
 
@@ -148,6 +149,7 @@ public class CreateGameJsfBean implements Serializable {
 	private String productName;
 	private int productPrice;
 	private int productDev;
+	private int productFixedProductionCost;
 	private List<Product> products = new ArrayList<Product>();
 
 	@EJB
@@ -168,7 +170,7 @@ public class CreateGameJsfBean implements Serializable {
 		}
 
 		Product product = productManager.createProduct(productName,
-				productPrice, productDev);
+				productPrice, productDev, productFixedProductionCost);
 		if (product == null) {
 			this.errorMessage = "Ce nom est déjà pris";
 			return "fail";
@@ -209,6 +211,14 @@ public class CreateGameJsfBean implements Serializable {
 
 	public void setProductDev(int productDev) {
 		this.productDev = productDev;
+	}
+
+	public int getProductFixedProductionCost() {
+		return productFixedProductionCost;
+	}
+
+	public void setProductFixedProductionCost(int productFixedProductionCost) {
+		this.productFixedProductionCost = productFixedProductionCost;
 	}
 
 	public List<Product> getProducts() {
@@ -318,5 +328,102 @@ public class CreateGameJsfBean implements Serializable {
 
 	public void setMachines(List<Machine> machines) {
 		this.machines = machines;
+	}
+
+	/*****************************/
+	/******* Fix variables *******/
+	/*****************************/
+	private int fixedPopulation = 0;
+	private double fixedStartTresory = 0;
+	private double fixedTax = 0;
+	private double fixedInterest = 0;
+	private int fixedCompanyCost = 0;
+	private int fixedMinimalSalary = 0;
+
+	public String validateFix() {
+		if (this.fixedPopulation < 0) {
+			this.errorMessage = "Population négative";
+			return "fail";
+		}
+		if (this.fixedStartTresory < 0) {
+			this.errorMessage = "Trésorie de départ négative";
+			return "fail";
+		}
+		if (this.fixedTax < 0 || this.fixedTax > 1) {
+			this.errorMessage = "Impôt négatif ou suppérieur à 1";
+			return "fail";
+		}
+		if (this.fixedInterest < 0 || this.fixedInterest > 1) {
+			this.errorMessage = "Interêt négatif ou suppérieur à 1";
+			return "fail";
+		}
+		if(this.fixedCompanyCost < 0) {
+			this.errorMessage = "L'entreprise rapporte en ne faisant rien ?";
+			return "fail";
+		}
+		if(this.fixedMinimalSalary < 0) {
+			this.errorMessage = "Vous ne pouvez pas faire payer vos employés pour travailler";
+			return "fail";
+		}
+		
+		FixedData fixedData = gameAdministrator.createFixedData();
+		fixedData.setPopulation(fixedPopulation);
+		fixedData.setCompanyCost(fixedCompanyCost);
+		fixedData.setInterest(fixedInterest);
+		fixedData.setMinimalSalary(fixedMinimalSalary);
+		fixedData.setStartTresory(fixedStartTresory);
+		fixedData.setTax(fixedTax);
+		
+		this.game.setFixedData(fixedData);
+		
+		return "success";
+	}
+
+	public int getFixedPopulation() {
+		return fixedPopulation;
+	}
+
+	public void setFixedPopulation(int fixedPopulation) {
+		this.fixedPopulation = fixedPopulation;
+	}
+
+	public double getFixedStartTresory() {
+		return fixedStartTresory;
+	}
+
+	public void setFixedStartTresory(double fixedStartTresory) {
+		this.fixedStartTresory = fixedStartTresory;
+	}
+
+	public double getFixedTax() {
+		return fixedTax;
+	}
+
+	public void setFixedTax(double fixedTax) {
+		this.fixedTax = fixedTax;
+	}
+
+	public double getFixedInterest() {
+		return fixedInterest;
+	}
+
+	public void setFixedInterest(double fixedInterest) {
+		this.fixedInterest = fixedInterest;
+	}
+
+	public int getFixedCompanyCost() {
+		return fixedCompanyCost;
+	}
+
+	public void setFixedCompanyCost(int fixedCompanyCost) {
+		this.fixedCompanyCost = fixedCompanyCost;
+	}
+
+	public int getFixedMinimalSalary() {
+		return fixedMinimalSalary;
+	}
+
+	public void setFixedMinimalSalary(int fixedMinimalSalary) {
+		this.fixedMinimalSalary = fixedMinimalSalary;
 	}
 }

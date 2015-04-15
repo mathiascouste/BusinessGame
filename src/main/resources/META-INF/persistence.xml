@@ -25,6 +25,7 @@
         <class>bg.company.entities.Machine</class>
         <class>bg.company.entities.Product</class>
         <class>bg.game.entities.Game</class>
+        <class>bg.game.entities.FixedData</class>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import bg.game.entities.FixedData;
 import bg.game.entities.Game;
 import bg.game.interfaces.AdministrateGame;
 
@@ -32,5 +33,12 @@ public class AdministrateGameBean implements AdministrateGame, Serializable {
 			entityManager.persist(game);
 		}
 		return game;
+	}
+
+	@Override
+	public FixedData createFixedData() {
+		FixedData data = new FixedData();
+		entityManager.persist(data);
+		return data;
 	}
 }

@@ -6,7 +6,7 @@ import bg.company.entities.Product;
 
 @Local
 public interface ProductManager {
-	public Product createProduct(String name, int cost, int dev);
+	public Product createProduct(String name, int cost, int dev, int fixedCost);
 
 	public Product findProductByID(Long ident);
 }

@@ -18,11 +18,12 @@ public class ProductManagerBean implements ProductManager {
 	EntityManager entityManager;
 
 	@Override
-	public Product createProduct(String name, int cost, int dev) {
+	public Product createProduct(String name, int cost, int dev, int fixedCost) {
 		Product product = new Product();
 		product.setName(name);
 		product.setPrice(cost);
 		product.setDevPrice(dev);
+		product.setFixedProductionCost(fixedCost);
 		entityManager.persist(product);
 		return product;
 	}

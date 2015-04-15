@@ -6,9 +6,39 @@
 	template="/templates/default.xhtml">
 
 	<ui:define name="content">
-		
+
 		<h1>Administration : Les données fixes</h1>
 
+		<h2>Pour la partie #{createGameJsfBean.name}</h2>
+		<h3>
+			<u>Parametrer la partie :</u>
+		</h3>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Nombre d'acheteur</label>
+				<h:inputText styleClass="form-control" id="population"
+					value='#{createGameJsfBean.fixedPopulation}' />
+				<br /> <label>Trésorerie de départ des entreprises</label>
+				<h:inputText styleClass="form-control" id="startTresory"
+					value='#{createGameJsfBean.fixedStartTresory}' />
+				<br /> <label>Taux d'imposition sur le bénéfice</label>
+				<h:inputText styleClass="form-control" id="tax"
+					value='#{createGameJsfBean.fixedTax}' />
+				<br /> <label>Taux d'interêt sur le découvert</label>
+				<h:inputText styleClass="form-control" id="interest"
+					value='#{createGameJsfBean.fixedInterest}' />
+				<br /> <label>Coût fixe annuel des entreprises</label>
+				<h:inputText styleClass="form-control" id="fixedCost"
+					value='#{createGameJsfBean.fixedCompanyCost}' />
+				<br /> <label>Salaire minimal des employés</label>
+				<h:inputText styleClass="form-control" id="minimalSalary"
+					value='#{createGameJsfBean.fixedMinimalSalary}' />
+				<br />
+
+				<h:commandButton action="#{createGameJsfBean.validateFix}"
+					styleClass="btn btn-primary"
+					value="Aller au paramètrage des variables variables" />
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
-	

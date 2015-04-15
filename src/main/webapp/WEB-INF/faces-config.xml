@@ -85,6 +85,18 @@
   </navigation-rule>
 
   <navigation-rule>
+    <from-view-id>/admin_fix_data.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/admin_floating_data.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/admin_fix_data.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
     <from-view-id>/stats.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>

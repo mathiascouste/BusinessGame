@@ -23,6 +23,11 @@
 					value='#{createGameJsfBean.productPrice}'>
 					<f:convertNumber longOnly="true" minimum="1" />
 				</h:inputText>
+				<label>Coût fixe de production</label>
+				<h:inputText styleClass="form-control" id="fixedCost"
+					value='#{createGameJsfBean.productFixedProductionCost}'>
+					<f:convertNumber longOnly="true" minimum="0" />
+				</h:inputText>
 				<label>Coût de la recherche</label>
 				<h:inputText styleClass="form-control" id="dev"
 					value='#{createGameJsfBean.productDev}'>
