@@ -11,7 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -19,14 +19,15 @@ import javax.validation.constraints.NotNull;
 @Table(name = "COMPANY")
 public class Company implements Serializable {
 	private static final long serialVersionUID = 4853323732822378959L;
+	private Long ident;
 	private String name;
 	private String password;
-	private int treasury;
+	private double treasury;
 	private int investments;
 	private int employeeQuantity;
 	private List<Machine> machineList;
 	private List<Product> productList;
-	
+
 	public Company() {
 		this.treasury = 0;
 		this.employeeQuantity = 0;
@@ -35,9 +36,50 @@ public class Company implements Serializable {
 		this.productList = new ArrayList<Product>();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.getIdent() == null) ? 0 : this.getIdent().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Company)) {
+			return false;
+		}
+		Company other = (Company) obj;
+		if (this.getIdent() == null) {
+			if (other.getIdent() != null) {
+				return false;
+			}
+		} else if (!this.getIdent().equals(other.getIdent())) {
+			return false;
+		}
+		return true;
+	}
+
 	@Id
-    @Column(name = "NAME")
-    @NotNull
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getIdent() {
+		return ident;
+	}
+
+	public void setIdent(Long ident) {
+		this.ident = ident;
+	}
+
+	@Column(name = "NAME")
+	@NotNull
 	public String getName() {
 		return name;
 	}
@@ -45,8 +87,9 @@ public class Company implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-    @Column(name = "PASSWORD")
-    @NotNull
+
+	@Column(name = "PASSWORD")
+	@NotNull
 	public String getPassword() {
 		return password;
 	}
@@ -55,18 +98,18 @@ public class Company implements Serializable {
 		this.password = password;
 	}
 
-    @Column(name = "TREASURY")
-    @NotNull
-	public int getTreasury() {
+	@Column(name = "TREASURY", columnDefinition = "Double")
+	@NotNull
+	public double getTreasury() {
 		return treasury;
 	}
 
-	public void setTreasury(int treasury) {
+	public void setTreasury(double treasury) {
 		this.treasury = treasury;
 	}
 
-    @Column(name = "INVESTMENT")
-    @NotNull
+	@Column(name = "INVESTMENT")
+	@NotNull
 	public int getInvestments() {
 		return investments;
 	}
@@ -75,8 +118,8 @@ public class Company implements Serializable {
 		this.investments = investments;
 	}
 
-    @Column(name = "N_EMPLOYEE")
-    @NotNull
+	@Column(name = "N_EMPLOYEE")
+	@NotNull
 	public int getEmployeeQuantity() {
 		return employeeQuantity;
 	}
@@ -85,6 +128,7 @@ public class Company implements Serializable {
 		this.employeeQuantity = employeeQuantity;
 	}
 
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Machine> getMachineList() {
 		return machineList;
 	}
@@ -93,6 +137,7 @@ public class Company implements Serializable {
 		this.machineList = machineList;
 	}
 
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Product> getProductList() {
 		return productList;
 	}

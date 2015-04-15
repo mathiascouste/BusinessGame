@@ -135,7 +135,7 @@
             <configuration>
                 <tomeeClassifier>plus</tomeeClassifier>
                 <args>-Xmx512m -XX:PermSize=256m</args>
-				<!--context>ROOT</context-->
+		<context>ROOT</context>
                 <deployOpenEjbApplication>true</deployOpenEjbApplication>
             </configuration>
             

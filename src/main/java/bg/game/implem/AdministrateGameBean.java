@@ -49,4 +49,19 @@ public class AdministrateGameBean implements AdministrateGame, Serializable {
 		entityManager.persist(data);
 		return data;
 	}
+
+	@Override
+	public void saveFixedData(FixedData data) {
+		entityManager.merge(data);
+	}
+
+	@Override
+	public void saveFloatingData(FloatingData data) {
+		entityManager.merge(data);
+	}
+
+	@Override
+	public void saveGame(Game game) {
+		entityManager.merge(game);
+	}
 }

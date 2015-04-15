@@ -340,6 +340,8 @@ public class CreateGameJsfBean implements Serializable {
 	private int fixedCompanyCost = 0;
 	private int fixedMinimalSalary = 0;
 
+	private FixedData fixedData = null;
+	
 	public String validateFix() {
 		if (this.fixedPopulation < 0) {
 			this.errorMessage = "Population négative";
@@ -357,25 +359,25 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Interêt négatif ou suppérieur à 1";
 			return "fail";
 		}
-		if(this.fixedCompanyCost < 0) {
+		if (this.fixedCompanyCost < 0) {
 			this.errorMessage = "L'entreprise rapporte en ne faisant rien ?";
 			return "fail";
 		}
-		if(this.fixedMinimalSalary < 0) {
+		if (this.fixedMinimalSalary < 0) {
 			this.errorMessage = "Vous ne pouvez pas faire payer vos employés pour travailler";
 			return "fail";
 		}
-		
-		FixedData fixedData = gameAdministrator.createFixedData();
+
+		fixedData = gameAdministrator.createFixedData();
 		fixedData.setPopulation(fixedPopulation);
 		fixedData.setCompanyCost(fixedCompanyCost);
 		fixedData.setInterest(fixedInterest);
 		fixedData.setMinimalSalary(fixedMinimalSalary);
 		fixedData.setStartTresory(fixedStartTresory);
 		fixedData.setTax(fixedTax);
-		
+
 		this.game.setFixedData(fixedData);
-		
+
 		return "success";
 	}
 
@@ -427,37 +429,39 @@ public class CreateGameJsfBean implements Serializable {
 		this.fixedMinimalSalary = fixedMinimalSalary;
 	}
 
-
 	/*****************************/
 	/**** Floating variables *****/
 	/*****************************/
+
 	private double floatingQuality = 0;
 	private double floatingAdvertising = 0;
 	private double floatingFidelity = 0;
+
+	private FloatingData floatingData = null;
 	
 	public String validateFloatting() {
-		if(floatingQuality < 0 || floatingQuality > 1) {
+		if (floatingQuality < 0 || floatingQuality > 1) {
 			this.errorMessage = "Coefficient de qualité négatif ou suppérieur à 1";
 			return "fail";
 		}
-		if(floatingAdvertising < 0 || floatingAdvertising > 1) {
+		if (floatingAdvertising < 0 || floatingAdvertising > 1) {
 			this.errorMessage = "Coefficient de publicité négatif ou suppérieur à 1";
 			return "fail";
 		}
-		if(floatingFidelity < 0 || floatingFidelity > 1) {
+		if (floatingFidelity < 0 || floatingFidelity > 1) {
 			this.errorMessage = "Coefficient de fidelité négatif ou suppérieur à 1";
 			return "fail";
 		}
-		
-		FloatingData floatingData = gameAdministrator.createFloatingData();
+
+		floatingData = gameAdministrator.createFloatingData();
 		floatingData.setAdvertising(floatingAdvertising);
 		floatingData.setFidelity(floatingFidelity);
 		floatingData.setQuality(floatingQuality);
 
 		this.game.setFloatingData(floatingData);
-		
+
 		return "success";
-		
+
 	}
 
 	public double getFloatingQuality() {
@@ -482,5 +486,50 @@ public class CreateGameJsfBean implements Serializable {
 
 	public void setFloatingFidelity(double floatingFidelity) {
 		this.floatingFidelity = floatingFidelity;
+	}
+
+	/*****************************/
+	/****** Launch variables *****/
+	/*****************************/
+	public String launch() {
+		if (game == null) {
+			return "fail";
+		}
+		if (teams == null || teams.size() == 0) {
+			return "fail";
+		}
+		if (products == null || products.size() == 0) {
+			return "fail";
+		}
+		if (machines == null || machines.size() == 0) {
+			return "fail";
+		}
+		if (fixedData == null) {
+			return "fail";
+		}
+		if (floatingData == null) {
+			return "fail";
+		}
+		this.game.setFixedData(fixedData);
+		this.game.setFloatingData(floatingData);
+		
+		gameAdministrator.saveFixedData(fixedData);
+		gameAdministrator.saveFloatingData(floatingData);
+		for(Company c : teams) {
+			c.setTreasury(game.getFixedData().getStartTresory());
+			companyManager.saveCompany(c);
+			game.getCompanies().add(c);
+		}
+		for(Machine m : machines) {
+			machineManager.saveMachine(m);
+			game.getMachines().add(m);
+		}
+		for(Product p : products) {
+			productManager.saveProduct(p);
+			game.getProducts().add(p);
+		}
+		gameAdministrator.saveGame(game);
+		
+		return "success";
 	}
 }

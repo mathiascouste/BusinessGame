@@ -24,89 +24,131 @@
       		  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
 
+
   <navigation-rule>
-    <from-view-id>/admin_create.xhtml</from-view-id>
+    <from-view-id>/join_game.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_teams.xhtml</to-view-id>
+      <to-view-id>/game/index.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_create.xhtml</to-view-id>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+  
+    <from-view-id>/join_company.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/company/index.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/join_company.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+	<!-- CREATION DE PARTIE -->
+
+  <navigation-rule>
+    <from-view-id>/newgame/create.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/newgame/teams.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/newgame/create.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/admin_teams.xhtml</from-view-id>
+    <from-view-id>/newgame/teams.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_products.xhtml</to-view-id>
+      <to-view-id>/newgame/products.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>continue</from-outcome>
-      <to-view-id>/admin_teams.xhtml</to-view-id>
+      <to-view-id>/newgame/teams.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_teams.xhtml</to-view-id>
+      <to-view-id>/newgame/teams.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/admin_products.xhtml</from-view-id>
+    <from-view-id>/newgame/products.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_machines.xhtml</to-view-id>
+      <to-view-id>/newgame/machines.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>continue</from-outcome>
-      <to-view-id>/admin_products.xhtml</to-view-id>
+      <to-view-id>/newgame/products.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_products.xhtml</to-view-id>
+      <to-view-id>/newgame/products.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/admin_machines.xhtml</from-view-id>
+    <from-view-id>/newgame/machines.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_fix_data.xhtml</to-view-id>
+      <to-view-id>/newgame/fix_data.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>continue</from-outcome>
-      <to-view-id>/admin_machines.xhtml</to-view-id>
+      <to-view-id>/newgame/machines.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_machines.xhtml</to-view-id>
+      <to-view-id>/newgame/machines.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/admin_fix_data.xhtml</from-view-id>
+    <from-view-id>/newgame/fix_data.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_floating_data.xhtml</to-view-id>
+      <to-view-id>/newgame/floating_data.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_fix_data.xhtml</to-view-id>
+      <to-view-id>/newgame/fix_data.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/admin_floating_data.xhtml</from-view-id>
+    <from-view-id>/newgame/floating_data.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/admin_launch.xhtml</to-view-id>
+      <to-view-id>/newgame/launch.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>fail</from-outcome>
-      <to-view-id>/admin_floating_data.xhtml</to-view-id>
+      <to-view-id>/newgame/floating_data.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/newgame/launch.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/index.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/newgame/launch.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+
+	<!-- STATISTIQUES -->
 
   <navigation-rule>
     <from-view-id>/stats.xhtml</from-view-id>

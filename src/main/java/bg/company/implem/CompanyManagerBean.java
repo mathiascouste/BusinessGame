@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 
 import bg.company.entities.Company;
 import bg.company.interfaces.CompanyManager;
-import bg.game.entities.Game;
 
 @Stateless(name = "CompanyManager")
 public class CompanyManagerBean implements CompanyManager {
@@ -20,15 +19,11 @@ public class CompanyManagerBean implements CompanyManager {
 
 	@Override
 	public Company createCompany(String name, String password) {
-		Company company = entityManager.find(Company.class, name);
-		if (company != null) {
-			return null;
-		} else {
-			company = new Company();
-			company.setName(name);
-			company.setPassword(password);
-			entityManager.persist(company);
-		}
+		Company company = new Company();
+		company.setName(name);
+		company.setPassword(password);
+		entityManager.persist(company);
+
 		return company;
 	}
 
@@ -54,6 +49,15 @@ public class CompanyManagerBean implements CompanyManager {
 		TypedQuery<Company> query = entityManager.createQuery(criteria);
 
 		return query.getSingleResult();
+	}
+
+	@Override
+	public void saveCompany(Company company) {
+		if(entityManager.find(Company.class, company.getIdent()) == null) {
+			entityManager.persist(company);
+		} else {
+			entityManager.merge(company);
+		}
 	}
 
 }

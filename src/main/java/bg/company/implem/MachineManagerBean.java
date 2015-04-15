@@ -41,4 +41,13 @@ public class MachineManagerBean implements MachineManager {
 
 		return query.getSingleResult();
 	}
+
+	@Override
+	public void saveMachine(Machine machine) {
+		if(entityManager.find(Machine.class, machine.getIdent()) == null) {
+			entityManager.persist(machine);
+		} else {
+			entityManager.merge(machine);
+		}
+	}
 }

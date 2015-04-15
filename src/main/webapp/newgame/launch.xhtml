@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+
+		<h1>#{createGameJsfBean.name} : Lancer la partie</h1>
+		<h3>
+			<u>Résumé des paramètres de la partie :</u>
+		</h3>
+
+		<f:verbatim>
+			<hr />
+		</f:verbatim>
+
+		<h3>Les entreprises :</h3>
+
+
+		<h3>Les produits :</h3>
+
+		<h3>Les machines :</h3>
+
+		<h3>Les données fixes :</h3>
+
+		<h3>Les données variables :</h3>
+
+
+		<h:form role="form">
+			<div class="form-group">
+				<h:commandButton action="#{createGameJsfBean.launch}"
+					styleClass="btn btn-primary" value="Valider et lancer la partie" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

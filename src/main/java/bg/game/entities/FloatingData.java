@@ -12,19 +12,50 @@ import javax.validation.constraints.NotNull;
 @Table(name = "FLOATINGDATA")
 public class FloatingData {
 	private Long ident;
-	private double quality ;
-	private double advertising ;
+	private double quality;
+	private double advertising;
 	private double fidelity;
-	
+
 	public FloatingData() {
 		this.quality = 0;
 		this.advertising = 0;
 		this.fidelity = 0;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((getIdent() == null) ? 0 : getIdent().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FloatingData)) {
+			return false;
+		}
+		FloatingData other = (FloatingData) obj;
+		if (getIdent() == null) {
+			if (other.getIdent() != null) {
+				return false;
+			}
+		} else if (!getIdent().equals(other.getIdent())) {
+			return false;
+		}
+		return true;
+	}
+
 	@Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getIdent() {
 		return ident;
 	}
@@ -33,8 +64,8 @@ public class FloatingData {
 		this.ident = ident;
 	}
 
-    @Column(name = "QUALITY", columnDefinition = "Double")
-    @NotNull
+	@Column(name = "QUALITY", columnDefinition = "Double")
+	@NotNull
 	public double getQuality() {
 		return quality;
 	}
@@ -43,8 +74,8 @@ public class FloatingData {
 		this.quality = quality;
 	}
 
-    @Column(name = "ADVERTISING", columnDefinition = "Double")
-    @NotNull
+	@Column(name = "ADVERTISING", columnDefinition = "Double")
+	@NotNull
 	public double getAdvertising() {
 		return advertising;
 	}
@@ -53,8 +84,8 @@ public class FloatingData {
 		this.advertising = advertising;
 	}
 
-    @Column(name = "FIDELITY", columnDefinition = "Double")
-    @NotNull
+	@Column(name = "FIDELITY", columnDefinition = "Double")
+	@NotNull
 	public double getFidelity() {
 		return fidelity;
 	}

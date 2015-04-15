@@ -40,4 +40,13 @@ public class ProductManagerBean implements ProductManager {
 		return query.getSingleResult();
 	}
 
+	@Override
+	public void saveProduct(Product product) {
+		if(entityManager.find(Product.class, product.getIdent()) == null) {
+			entityManager.persist(product);
+		} else {
+			entityManager.merge(product);
+		}
+	}
+
 }

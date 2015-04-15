@@ -28,6 +28,36 @@ public class FixedData {
 		this.minimalSalary = 0;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getIdent() == null) ? 0 : getIdent().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FixedData)) {
+			return false;
+		}
+		FixedData other = (FixedData) obj;
+		if (getIdent() == null) {
+			if (other.getIdent() != null) {
+				return false;
+			}
+		} else if (!getIdent().equals(other.getIdent())) {
+			return false;
+		}
+		return true;
+	}
+
 	@Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)

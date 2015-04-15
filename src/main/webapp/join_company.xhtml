@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+
+		<h1>Administrer une entreprise</h1>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Identifiant de la partie</label><br />
+				<h:inputText styleClass="form-control" id="ident"
+					value='#{joinCompanyJsfBean.gameIdent}' />
+				<br /> <label for="password">Nom de l'entreprise</label><br />
+				<h:inputText styleClass="form-control" id="name"
+					value='#{joinCompanyJsfBean.companyName}' />
+				<br /> <label for="password">Mot de passe de l'entreprise</label><br />
+				<h:inputText styleClass="form-control" id="password"
+					value='#{joinCompanyJsfBean.companyPassword}' />
+				<br />
+
+
+				<h:commandButton action="#{joinCompanyJsfBean.connect}"
+					styleClass="btn btn-primary" value="Se connecter" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

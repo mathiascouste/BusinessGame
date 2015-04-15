@@ -8,6 +8,8 @@ import bg.company.entities.Company;
 public interface CompanyManager {
 	public Company createCompany(String name, String password);
 
+	public void saveCompany(Company company);
+
 	public Company findCompanyByID(Long ident);
 
 	public Company findCompanyByName(String name);

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import bg.company.entities.Company;
+import bg.company.entities.Machine;
+import bg.company.entities.Product;
 
 @Entity
 @Table(name = "GAME")
@@ -27,6 +29,8 @@ public class Game implements Serializable {
 	private String password;
 	private int lapQuantity;
 	private List<Company> companies;
+	private List<Product> products;
+	private List<Machine> machines;
 	private FixedData fixedData;
 	private FloatingData floatingData;
 
@@ -35,7 +39,39 @@ public class Game implements Serializable {
 		this.password = "";
 		this.lapQuantity = 0;
 		this.companies = new ArrayList<Company>();
+		this.products = new ArrayList<Product>();
+		this.machines = new ArrayList<Machine>();
 		this.fixedData = null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getIdent() == null) ? 0 : getIdent().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Game)) {
+			return false;
+		}
+		Game other = (Game) obj;
+		if (getIdent() == null) {
+			if (other.getIdent() != null) {
+				return false;
+			}
+		} else if (!getIdent().equals(other.getIdent())) {
+			return false;
+		}
+		return true;
 	}
 
 	@Id
@@ -83,8 +119,26 @@ public class Game implements Serializable {
 		return companies;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public void setCompanies(List<Company> companies) {
 		this.companies = companies;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public List<Machine> getMachines() {
+		return machines;
+	}
+
+	public void setMachines(List<Machine> machines) {
+		this.machines = machines;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

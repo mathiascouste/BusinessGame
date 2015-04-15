@@ -18,5 +18,5 @@
 -->
 <%@ page session="false" %>
 <%
-  response.sendRedirect("stats.jsf");
+  response.sendRedirect("index.jsf");
 %>
