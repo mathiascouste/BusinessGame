@@ -36,10 +36,8 @@ public class CookieHelper {
 			cookie.setPath(request.getContextPath());
 		}
 
-		if (expiry > 0) {
-			cookie.setMaxAge(expiry);
-		}
-		
+		cookie.setMaxAge(expiry);
+
 		HttpServletResponse response = (HttpServletResponse) facesContext
 				.getExternalContext().getResponse();
 		response.addCookie(cookie);

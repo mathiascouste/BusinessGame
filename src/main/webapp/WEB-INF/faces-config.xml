@@ -24,6 +24,53 @@
       		  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
 
+  <navigation-rule>
+    <from-view-id>/game/index.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/index.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/game/index.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/game/stats.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/stats.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/game/stats.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/game/companies.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/companies.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/game/companies.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
   <navigation-rule>
     <from-view-id>/join_game.xhtml</from-view-id>

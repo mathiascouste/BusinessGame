@@ -14,6 +14,7 @@ import bg.company.entities.Product;
 import bg.company.interfaces.CompanyManager;
 import bg.company.interfaces.MachineManager;
 import bg.company.interfaces.ProductManager;
+import bg.connexion.interfaces.Connexion;
 import bg.game.entities.FixedData;
 import bg.game.entities.FloatingData;
 import bg.game.entities.Game;
@@ -491,6 +492,10 @@ public class CreateGameJsfBean implements Serializable {
 	/*****************************/
 	/****** Launch variables *****/
 	/*****************************/
+	
+	@EJB
+	Connexion connexion;
+	
 	public String launch() {
 		if (game == null) {
 			return "fail";
@@ -529,6 +534,8 @@ public class CreateGameJsfBean implements Serializable {
 			game.getProducts().add(p);
 		}
 		gameAdministrator.saveGame(game);
+		
+		connexion.connectToGame(game.getIdent(), game.getPassword());
 		
 		return "success";
 	}

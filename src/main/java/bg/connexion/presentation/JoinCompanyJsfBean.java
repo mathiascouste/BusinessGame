@@ -10,6 +10,7 @@ import tools.CookieHelper;
 
 import bg.connexion.interfaces.Connexion;
 
+@ViewScoped
 @ManagedBean
 public class JoinCompanyJsfBean implements Serializable {
 	private static final long serialVersionUID = 1L;

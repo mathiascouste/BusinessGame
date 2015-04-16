@@ -1,5 +1,6 @@
 package bg.connexion.implem;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,8 +12,8 @@ import bg.connexion.interfaces.Connexion;
 import bg.game.entities.Game;
 
 @Stateless(name = "Connexion")
-public class ConnexionBean implements Connexion {
-
+public class ConnexionBean implements Connexion, Serializable {
+	private static final long serialVersionUID = -6068234697472630237L;
 	@PersistenceContext(unitName = "database")
 	EntityManager entityManager;
 
