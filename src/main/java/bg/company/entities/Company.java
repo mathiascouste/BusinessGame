@@ -12,8 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import bg.order.entities.Order;
 
 @Entity
 @Table(name = "COMPANY")
@@ -29,6 +32,8 @@ public class Company implements Serializable {
 	private List<Product> productList;
 	private double amende;
 	private double subvention;
+	private Order currentOrder;
+	private Order validatedOrder;
 
 	public Company() {
 		this.treasury = 0;
@@ -38,6 +43,8 @@ public class Company implements Serializable {
 		this.productList = new ArrayList<Product>();
 		this.amende = 0;
 		this.subvention = 0;
+		this.currentOrder = null;
+		this.validatedOrder = null;
 	}
 
 	@Override
@@ -47,6 +54,15 @@ public class Company implements Serializable {
 		result = prime * result
 				+ ((this.getIdent() == null) ? 0 : this.getIdent().hashCode());
 		return result;
+	}
+
+	// 1 is ready, else 0
+	public int isReady() {
+		if (validatedOrder != null) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
@@ -166,5 +182,23 @@ public class Company implements Serializable {
 
 	public void setSubvention(double subvention) {
 		this.subvention = subvention;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(Order currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public Order getValidatedOrder() {
+		return validatedOrder;
+	}
+
+	public void setValidatedOrder(Order validatedOrder) {
+		this.validatedOrder = validatedOrder;
 	}
 }

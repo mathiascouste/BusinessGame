@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/gameAdministrationHeader.xhtml">
+
+	<ui:define name="content">
+
+		<label for="name">PAGE DE GARDE DE L'ADMINISTRATION DE JEU</label>
+		<br /> Connecté ? #{joinGameJsfBean.isConnected()}
+		<br />
+		<label>Résumé des équipes et des choses pour le tour</label>
+
+		<h:form role="form">
+			<h:commandButton action="#{gameNextTurnJsfBean.simulate()}"
+				styleClass="btn btn-warning" value="Lancer la simulation de l'année">
+			</h:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>

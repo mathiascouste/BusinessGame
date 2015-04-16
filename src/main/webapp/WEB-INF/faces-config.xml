@@ -25,6 +25,22 @@
               version="2.0">
 
   <navigation-rule>
+    <from-view-id>/game/nextTurn.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/nextTurn.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/game/nextTurn.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
     <from-view-id>/game/index.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
@@ -37,6 +53,22 @@
     <navigation-case>
       <from-outcome>fail</from-outcome>
       <to-view-id>/game/index.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  
+  <navigation-rule>
+    <from-view-id>/game/generalOrder.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/game/generalOrder.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/join_game.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/game/generalOrder.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 

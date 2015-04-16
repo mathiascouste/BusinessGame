@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/gameAdministrationHeader.xhtml">
+
+	<ui:define name="content">
+
+		<h2>Passer un order général</h2>
+		<br /> Connecté ? #{joinGameJsfBean.isConnected()}
+		<br />
+
+		<h:form role="form">
+			<div class="form-group">
+				<h4>Social</h4>
+				<label>Nombre d'employés :</label><br />
+				<h:inputText styleClass="form-control" id="employee"
+					value='#{gameGeneralOrder.employee}' />
+				<label>Salaire des employés :</label><br />
+				<h:inputText styleClass="form-control" id="salary"
+					value='#{gameGeneralOrder.salary}' />
+
+
+				<h:commandButton action="#{gameGeneralOrder.apply()}"
+					styleClass="btn btn-primary"
+					value="Appliquer l'ordre à toutes les entreprises" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

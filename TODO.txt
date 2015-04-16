@@ -19,9 +19,17 @@ DONE :
 
 TODO :
 	# V0.0.4
-	- creer un ordre général
-	- modifier un ordre général
-	- valider un ordre général
+	[ordre && cycle annuel]
+	- creer un ordre général [OK]
+	- modifier un ordre général [FORGET IT]
+	- valider un ordre général [OK]
+	Fonctionnalités :
+		-> choisir le nombre de salarié [2/2]
+		-> choisir la paie des salariés [2/2]
+		-> choisir le montant de financement de la R&D [0/2]
+		-> acheter des machines [0/2]
+		-> choisir le nombre produit à produire, sa qualité, sa publicité [0/2]
+		-> etc ...
 
 	# V0.0.5
 	- simuler un cycle annuel [avec tous les produits vendus]

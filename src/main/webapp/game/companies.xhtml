@@ -29,8 +29,10 @@
 					<!-- column header -->
 					<f:facet name="header">Nom</f:facet>
 					<!-- row record -->
-                                #{c.name}
-                        </h:column>
+					<h:outputText
+						style="color : #{c.isReady() gt 0 ? 'green' : 'red'};"
+						value="#{c.name}" />
+				</h:column>
 
 
 				<h:column>
@@ -38,10 +40,10 @@
                                 #{c.treasury}
             </h:column>
 				<h:column>
-					<f:facet name="header">Amende</f:facet>(#{c.amende})
+					<f:facet name="header">Amende</f:facet>#{c.amende}
 				</h:column>
 				<h:column>
-					<f:facet name="header">Subvention</f:facet>(#{c.subvention})
+					<f:facet name="header">Subvention</f:facet>#{c.subvention}
 				</h:column>
 				<h:column>
 					<f:facet name="header">Appliquer</f:facet>

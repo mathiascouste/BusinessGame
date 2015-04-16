@@ -42,6 +42,9 @@ public class GameCompaniesJsfBean implements Serializable {
 	}
 
 	public String giveBonus() {
+		if(this.getGame() == null) {
+			return "fail";
+		}
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Map<String, String> params = facesContext.getExternalContext()
 				.getRequestParameterMap();
@@ -80,9 +83,6 @@ public class GameCompaniesJsfBean implements Serializable {
 	}
 
 	private Game getGame() {
-		if (this.game != null) {
-			return this.game;
-		}
 		Cookie cookie = new CookieHelper().getCookie("game_ident");
 		String gameID = "";
 		String gamePassword = "";
@@ -100,9 +100,6 @@ public class GameCompaniesJsfBean implements Serializable {
 	}
 
 	public List<Company> getCompanies() {
-		if (this.companies.size() > 0) {
-			return this.companies;
-		}
 		Game g = this.getGame();
 		if (g != null) {
 			this.companies = g.getCompanies();
