@@ -27,6 +27,8 @@ public class Company implements Serializable {
 	private int employeeQuantity;
 	private List<Machine> machineList;
 	private List<Product> productList;
+	private double amende;
+	private double subvention;
 
 	public Company() {
 		this.treasury = 0;
@@ -34,6 +36,8 @@ public class Company implements Serializable {
 		this.investments = 0;
 		this.machineList = new ArrayList<Machine>();
 		this.productList = new ArrayList<Product>();
+		this.amende = 0;
+		this.subvention = 0;
 	}
 
 	@Override
@@ -144,5 +148,23 @@ public class Company implements Serializable {
 
 	public void setProductList(List<Product> productList) {
 		this.productList = productList;
+	}
+
+	@Column(name = "AMENDE", columnDefinition = "Double")
+	public double getAmende() {
+		return amende;
+	}
+
+	public void setAmende(double amende) {
+		this.amende = amende;
+	}
+
+	@Column(name = "SUBVENTION", columnDefinition = "Double")
+	public double getSubvention() {
+		return subvention;
+	}
+
+	public void setSubvention(double subvention) {
+		this.subvention = subvention;
 	}
 }

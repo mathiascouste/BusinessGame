@@ -17,22 +17,19 @@ public class AdministrateGameBean implements AdministrateGame, Serializable {
 
 	@PersistenceContext(unitName = "database")
 	EntityManager entityManager;
-	
+
 	public Game createGame(String name, String password) {
-		Game game = null; //entityManager.find(Game.class, name);
-		/*if (game != null) {
-			if (game.getPassword().equals(password)) {
-				return game;
-			} else {
-				System.out.println("C'est nul !");
-				return null;
-			}
-		} else {*/
-			game = new Game();
-			game.setName(name);
-			game.setPassword(password);
-			entityManager.persist(game);
-		//}
+		Game game = null; // entityManager.find(Game.class, name);
+		/*
+		 * if (game != null) { if (game.getPassword().equals(password)) { return
+		 * game; } else { System.out.println("C'est nul !"); return null; } }
+		 * else {
+		 */
+		game = new Game();
+		game.setName(name);
+		game.setPassword(password);
+		entityManager.persist(game);
+		// }
 		return game;
 	}
 
@@ -63,5 +60,10 @@ public class AdministrateGameBean implements AdministrateGame, Serializable {
 	@Override
 	public void saveGame(Game game) {
 		entityManager.merge(game);
+	}
+
+	@Override
+	public Game findGameByID(Long id) {
+		return entityManager.find(Game.class, id);
 	}
 }

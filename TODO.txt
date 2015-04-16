@@ -11,19 +11,24 @@ DONE :
 	- parametrer variables flottantes (valeur par défaut et non variable)
 	- LANCER PARTIE !
 
-TODO :
 	# V0.0.3
 	- interface utilisateur d'administration du jeu
-	- interface utilisateur d'administration d'une entreprise
+		- connexion [OK]
+		- résumé des entreprises [OK]
+		- mettre amande & subvention [OK]
 
+TODO :
 	# V0.0.4
-	- creer un ordre
-	- modifier un ordre
-	- valider un ordre
+	- creer un ordre général
+	- modifier un ordre général
+	- valider un ordre général
 
 	# V0.0.5
 	- simuler un cycle annuel [avec tous les produits vendus]
 	- parametrer variables flottantes
+
+	# V0.0.6
+	- interface utilisateur d'administration d'une entreprise
 
 	# V0.0.6
 	- simuler un cycle annuel [avec produits pas tous vendus]

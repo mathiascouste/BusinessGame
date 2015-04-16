@@ -12,5 +12,47 @@
 		<label>COMPANIES</label>
 		<br /> Connecté ? #{joinGameJsfBean.isConnected()}
 		<br />
+
+		<h:form role="form">
+			<label>Fixer amende</label>
+			<h:inputText styleClass="form-control" id="amende"
+				value='#{gameCompaniesJsfBean.malus}' />
+
+			<label>Fixer subvention</label>
+			<h:inputText styleClass="form-control" id="subvention"
+				value='#{gameCompaniesJsfBean.bonus}' />
+			<h:dataTable value="#{gameCompaniesJsfBean.companies}" var="c"
+				styleClass="table table-striped">
+
+
+				<h:column>
+					<!-- column header -->
+					<f:facet name="header">Nom</f:facet>
+					<!-- row record -->
+                                #{c.name}
+                        </h:column>
+
+
+				<h:column>
+					<f:facet name="header">Trésorerie</f:facet>
+                                #{c.treasury}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Amende</f:facet>(#{c.amende})
+				</h:column>
+				<h:column>
+					<f:facet name="header">Subvention</f:facet>(#{c.subvention})
+				</h:column>
+				<h:column>
+					<f:facet name="header">Appliquer</f:facet>
+					<h:commandButton action="#{gameCompaniesJsfBean.giveBonus()}"
+						styleClass="btn btn-warning" value="Appliquer">
+						<f:param name="companyID" value="#{c.ident}" />
+
+						<f:setPropertyActionListener target="#{c}" value="#{c}" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,5 +1,7 @@
 package bg.game.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "FLOATINGDATA")
-public class FloatingData {
+public class FloatingData implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Long ident;
 	private double quality;
 	private double advertising;
