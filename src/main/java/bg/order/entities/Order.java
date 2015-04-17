@@ -14,10 +14,12 @@ public class Order {
 	private Long ident;
 	private int employee;
 	private int salary;
+	private int research;
 
 	public Order() {
 		this.employee = 0;
 		this.salary = 0;
+		this.research = 0;
 	}
 
 	@Id
@@ -49,5 +51,15 @@ public class Order {
 
 	public void setSalary(int salary) {
 		this.salary = salary;
+	}
+
+	@Column(name = "RESEARCH")
+	@NotNull
+	public int getResearch() {
+		return research;
+	}
+
+	public void setResearch(int research) {
+		this.research = research;
 	}
 }

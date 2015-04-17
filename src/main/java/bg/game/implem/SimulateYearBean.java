@@ -12,7 +12,7 @@ import bg.game.interfaces.AdministrateGame;
 import bg.game.interfaces.SimulateYear;
 import bg.order.entities.Order;
 
-@Stateless(name="SimulateYear")
+@Stateless(name = "SimulateYear")
 public class SimulateYearBean implements SimulateYear, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,8 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 			int max = nPrevEmployee > nNextEmployee ? nPrevEmployee
 					: nNextEmployee;
 			loss += game.getFixedData().getCompanyCost();
+			loss += order.getResearch();
+			c.setInvestments(c.getInvestments() + order.getResearch());
 			loss += max * order.getSalary();
 			loss += c.getAmende();
 			gain += c.getSubvention();
@@ -62,8 +64,8 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 	}
 
 	private void saveChange(Game game) {
-		for (Company c : game.getCompanies()) {
-			companyManager.saveCompany(c);
+		for (int i = 0; i < game.getCompanies().size(); i++) {
+			companyManager.saveCompany(game.getCompanies().get(i));
 		}
 		gameManager.saveGame(game);
 	}

@@ -24,6 +24,7 @@ public class GameGeneralOrder implements Serializable {
 	private static final long serialVersionUID = -4981963404610900131L;
 	private int employee = 0;
 	private int salary = 0;
+	private int research = 0;
 	private List<Company> companies;
 	private Game game;
 
@@ -54,6 +55,7 @@ public class GameGeneralOrder implements Serializable {
 		Order order = orderManager.createOrder();
 		order.setSalary(salary);
 		order.setEmployee(employee);
+		order.setResearch(research);
 
 		for (Company c : this.game.getCompanies()) {
 			c.setValidatedOrder(order);
@@ -110,5 +112,13 @@ public class GameGeneralOrder implements Serializable {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public int getResearch() {
+		return research;
+	}
+
+	public void setResearch(int research) {
+		this.research = research;
 	}
 }
