@@ -39,22 +39,36 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 		this.saveChange(game);
 	}
 
+	int payAndApplyEmployee(Company company) {
+		int loss = 0;
+		int addEmployee = company.getValidatedOrder().getEmployee();
+		if (addEmployee < 0) {
+			loss += company.getValidatedOrder().getSalary()
+					* company.getEmployeeQuantity();
+		} else {
+			loss += company.getValidatedOrder().getSalary()
+					* (company.getEmployeeQuantity() + addEmployee);
+		}
+		int nEmployee = company.getEmployeeQuantity() + addEmployee;
+		if (nEmployee < 0)
+			nEmployee = 0;
+		company.setEmployeeQuantity(nEmployee);
+
+		return loss;
+	}
+
 	private void applyGainAndLoss(Game game) {
 		for (Company c : game.getCompanies()) {
 			Order order = c.getValidatedOrder();
 			double loss = 0;
 			double gain = 0;
-			int nPrevEmployee = c.getEmployeeQuantity();
-			int nNextEmployee = order.getEmployee();
-			int max = nPrevEmployee > nNextEmployee ? nPrevEmployee
-					: nNextEmployee;
+
 			loss += game.getFixedData().getCompanyCost();
 			loss += order.getResearch();
-			c.setInvestments(c.getInvestments() + order.getResearch());
-			loss += max * order.getSalary();
+			loss += payAndApplyEmployee(c);
 			loss += c.getAmende();
 			gain += c.getSubvention();
-			c.setEmployeeQuantity(nNextEmployee);
+			c.setInvestments(c.getInvestments() + order.getResearch());
 			c.setAmende(0);
 			c.setSubvention(0);
 
@@ -64,8 +78,9 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 	}
 
 	private void saveChange(Game game) {
-		for (int i = 0; i < game.getCompanies().size(); i++) {
-			companyManager.saveCompany(game.getCompanies().get(i));
+		for (Company c : game.getCompanies()) {
+			c.setValidatedOrder(null);
+			companyManager.saveCompany(c);
 		}
 		gameManager.saveGame(game);
 	}

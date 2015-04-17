@@ -119,20 +119,20 @@ public class Game implements Serializable {
 		return companies;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public void setCompanies(List<Company> companies) {
 		this.companies = companies;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Product> getProducts() {
 		return products;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Machine> getMachines() {
 		return machines;
 	}

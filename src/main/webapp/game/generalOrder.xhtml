@@ -20,11 +20,43 @@
 				<label>Salaire des employés :</label><br />
 				<h:inputText styleClass="form-control" id="salary"
 					value='#{gameGeneralOrder.salary}' />
-					
-					
+
+
+				<h4>Matériel</h4>
+				<label>Achat de machines</label><br /> <label>Quantité à
+					acheter</label>
+				<h:inputText styleClass="form-control" id="machineQuantity"
+					value='#{gameGeneralOrder.machineQuantity}' />
+				<h:dataTable value="#{gameGeneralOrder.machines}" var="m"
+					styleClass="table table-striped">
+
+					<h:column>
+						<!-- column header -->
+						<f:facet name="header">Nom</f:facet>
+						<!-- row record -->
+                                #{m.name}
+                        </h:column>
+
+					<h:column>
+						<f:facet name="header">Prix</f:facet>
+                                #{m.price}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+                                #{gameGeneralOrder.getMachineQuantity(m)}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Appliquer</f:facet>
+						<h:commandButton action="#{gameGeneralOrder.buyMachine()}"
+							styleClass="btn btn-warning" value="Appliquer">
+							<f:param name="machineID" value="#{m.ident}" />
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+
 				<h4>Production</h4>
-				
-				
+
+
 				<h4>Autre</h4>
 				<label>Investissement Recherche et Dévellopement :</label><br />
 				<h:inputText styleClass="form-control" id="research"

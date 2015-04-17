@@ -17,17 +17,19 @@ DONE :
 		- résumé des entreprises [OK]
 		- mettre amande & subvention [OK]
 
-TODO :
 	# V0.0.4
 	[ordre && cycle annuel]
 	- creer un ordre général [OK]
 	- modifier un ordre général [FORGET IT]
 	- valider un ordre général [OK]
-	Fonctionnalités :
+
+TODO :
+	# V0.0.4
+	Fonctionnalités pour simulation : [fait pour order / appliqué dans la simulation]
 		-> choisir le nombre de salarié [2/2]
 		-> choisir la paie des salariés [2/2]
 		-> choisir le montant de financement de la R&D [2/2]
-		-> acheter des machines [0/2]
+		-> acheter des machines [1/2]
 		-> choisir le nombre produit à produire, sa qualité, sa publicité [0/2]
 		-> etc ...
 

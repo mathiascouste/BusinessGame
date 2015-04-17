@@ -1,20 +1,29 @@
 package bg.order.entities;
 
+import java.io.Serializable;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import bg.company.entities.Machine;
+
 @Entity
 @Table(name = "ORDRE")
-public class Order {
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Long ident;
 	private int employee;
 	private int salary;
 	private int research;
+	private Map<Machine, Integer> buyMachines;
 
 	public Order() {
 		this.employee = 0;
@@ -61,5 +70,14 @@ public class Order {
 
 	public void setResearch(int research) {
 		this.research = research;
+	}
+
+    @ElementCollection(fetch = FetchType.EAGER)
+	public Map<Machine, Integer> getBuyMachines() {
+		return buyMachines;
+	}
+
+	public void setBuyMachines(Map<Machine, Integer> buyMachines) {
+		this.buyMachines = buyMachines;
 	}
 }
