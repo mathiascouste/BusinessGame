@@ -29,14 +29,7 @@ public class CompanyManagerBean implements CompanyManager {
 
 	@Override
 	public Company findCompanyByID(Long ident) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Company> criteria = builder.createQuery(Company.class);
-		Root<Company> from = criteria.from(Company.class);
-		criteria.select(from);
-		criteria.where(builder.equal(from.get("ID"), ident));
-		TypedQuery<Company> query = entityManager.createQuery(criteria);
-
-		return query.getSingleResult();
+		return entityManager.find(Company.class, ident);
 	}
 
 	@Override
@@ -53,7 +46,7 @@ public class CompanyManagerBean implements CompanyManager {
 
 	@Override
 	public void saveCompany(Company company) {
-		if(entityManager.find(Company.class, company.getIdent()) == null) {
+		if (entityManager.find(Company.class, company.getIdent()) == null) {
 			entityManager.persist(company);
 		} else {
 			entityManager.merge(company);

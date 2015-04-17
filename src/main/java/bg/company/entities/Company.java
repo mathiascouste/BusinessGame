@@ -1,17 +1,17 @@
 package bg.company.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,8 +28,8 @@ public class Company implements Serializable {
 	private double treasury;
 	private int investments;
 	private int employeeQuantity;
-	private List<Machine> machineList;
-	private List<Product> productList;
+	private Map<Machine, Integer> machineList;
+	private Map<Product, Integer> productList;
 	private double amende;
 	private double subvention;
 	private Order currentOrder;
@@ -39,8 +39,8 @@ public class Company implements Serializable {
 		this.treasury = 0;
 		this.employeeQuantity = 0;
 		this.investments = 0;
-		this.machineList = new ArrayList<Machine>();
-		this.productList = new ArrayList<Product>();
+		this.machineList = new HashMap<Machine, Integer>();
+		this.productList = new HashMap<Product, Integer>();
 		this.amende = 0;
 		this.subvention = 0;
 		this.currentOrder = null;
@@ -148,21 +148,21 @@ public class Company implements Serializable {
 		this.employeeQuantity = employeeQuantity;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public List<Machine> getMachineList() {
+	@ElementCollection(fetch = FetchType.EAGER)
+	public Map<Machine, Integer> getMachineList() {
 		return machineList;
 	}
 
-	public void setMachineList(List<Machine> machineList) {
+	public void setMachineList(Map<Machine, Integer> machineList) {
 		this.machineList = machineList;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public List<Product> getProductList() {
+	@ElementCollection(fetch = FetchType.EAGER)
+	public Map<Product, Integer> getProductList() {
 		return productList;
 	}
 
-	public void setProductList(List<Product> productList) {
+	public void setProductList(Map<Product, Integer> productList) {
 		this.productList = productList;
 	}
 

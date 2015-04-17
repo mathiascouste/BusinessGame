@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/templates/default.xhtml">
+
+	<ui:define name="content">
+		<h3>Présentation de l'entreprise #{showCompanyJsfBean.getName()}</h3>
+		<br />
+		<label>Trésorerie : </label> #{showCompanyJsfBean.getTreasury()}
+		<br />
+		<label>Recherche : </label> #{showCompanyJsfBean.getResearch()}
+		<br />
+		<label>Nombre d'employés : </label> #{showCompanyJsfBean.getEmployee()}
+		<br />
+		<label>Quantité de machine :</label>
+		<h:dataTable value="#{showCompanyJsfBean.getMachineList()}" var="e"
+			styleClass="table table-striped">
+			<h:column>
+				<f:facet name="header">Machine</f:facet>
+				#{e.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+                                #{e.quantity}
+            </h:column>
+		</h:dataTable>
+		<br />
+		<!--label>Quantité de produit en stock :</label>
+		<c:forEach items="#{yourBean.map}" var="entry">
+			<li>Key: #{entry.key}, value: #{entry.value}</li>
+		</c:forEach-->
+	</ui:define>
+</ui:composition>

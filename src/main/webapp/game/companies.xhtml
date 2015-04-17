@@ -29,9 +29,10 @@
 					<!-- column header -->
 					<f:facet name="header">Nom</f:facet>
 					<!-- row record -->
+					<a href="/showCompany.jsf?id=#{c.ident}" target="_blank">
 					<h:outputText
 						style="color : #{c.isReady() gt 0 ? 'green' : 'red'};"
-						value="#{c.name}" />
+						value="#{c.name}" /></a>
 				</h:column>
 
 

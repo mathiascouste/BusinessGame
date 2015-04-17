@@ -29,7 +29,7 @@ TODO :
 		-> choisir le nombre de salarié [2/2]
 		-> choisir la paie des salariés [2/2]
 		-> choisir le montant de financement de la R&D [2/2]
-		-> acheter des machines [1/2]
+		-> acheter des machines [2/2]
 		-> choisir le nombre produit à produire, sa qualité, sa publicité [0/2]
 		-> etc ...
 
