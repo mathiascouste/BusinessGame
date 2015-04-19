@@ -15,11 +15,13 @@ import javax.servlet.http.Cookie;
 import tools.CookieHelper;
 import bg.company.entities.Company;
 import bg.company.entities.Machine;
+import bg.company.entities.Product;
 import bg.company.interfaces.CompanyManager;
 import bg.connexion.interfaces.Connexion;
 import bg.game.entities.Game;
 import bg.game.interfaces.AdministrateGame;
 import bg.order.entities.Order;
+import bg.order.entities.ProductionOrder;
 import bg.order.interfaces.OrderManager;
 
 @SessionScoped
@@ -34,6 +36,11 @@ public class GameGeneralOrder implements Serializable {
 	private Map<Machine, Integer> buyMachines = new HashMap<Machine, Integer>();
 	private List<Machine> machines;
 	private Game game;
+	private int productQuantity = 0;
+	private int productQuality = 0;
+	private int productAdvertising = 0;
+	private int productSellPrice = 0;
+	private List<ProductionOrder> productionOrders = new ArrayList<ProductionOrder>();
 
 	@EJB
 	Connexion connexion;
@@ -49,6 +56,27 @@ public class GameGeneralOrder implements Serializable {
 
 	public GameGeneralOrder() {
 		this.companies = new ArrayList<Company>();
+	}
+
+	public String productProduct() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Map<String, String> params = facesContext.getExternalContext()
+				.getRequestParameterMap();
+		String strID = params.get("productID");
+		Long id = new Long(strID);
+
+		for (ProductionOrder pO : this.productionOrders) {
+			if (pO.getProduct().getIdent().equals(id)) {
+				pO.setAdvertising(this.productAdvertising);
+				pO.setQuality(this.productQuality);
+				pO.setQuantity(this.productQuantity);
+				pO.setSellPrice(this.productSellPrice);
+				this.productAdvertising = this.productQuality = this.productQuantity = this.productSellPrice = 0;
+			}
+		}
+
+		System.out.println(id);
+		return "success";
 	}
 
 	public String buyMachine() {
@@ -87,6 +115,7 @@ public class GameGeneralOrder implements Serializable {
 		order.setEmployee(employee);
 		order.setResearch(research);
 		order.setBuyMachines(buyMachines);
+		order.setProductionOrders(productionOrders);
 
 		for (Company c : this.game.getCompanies()) {
 			c.setValidatedOrder(order);
@@ -189,5 +218,52 @@ public class GameGeneralOrder implements Serializable {
 
 	public void setMachineQuantity(int machineQuantity) {
 		this.machineQuantity = machineQuantity;
+	}
+
+	public int getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	public int getProductQuality() {
+		return productQuality;
+	}
+
+	public void setProductQuality(int productQuality) {
+		this.productQuality = productQuality;
+	}
+
+	public int getProductAdvertising() {
+		return productAdvertising;
+	}
+
+	public void setProductAdvertising(int productAdvertising) {
+		this.productAdvertising = productAdvertising;
+	}
+
+	public int getProductSellPrice() {
+		return productSellPrice;
+	}
+
+	public void setProductSellPrice(int productSellPrice) {
+		this.productSellPrice = productSellPrice;
+	}
+
+	public List<ProductionOrder> getProductionOrders() {
+		if (this.productionOrders.size() == 0) {
+			for (Product p : getGame().getProducts()) {
+				ProductionOrder pO = new ProductionOrder();
+				pO.setProduct(p);
+				this.productionOrders.add(pO);
+			}
+		}
+		return productionOrders;
+	}
+
+	public void setProductionOrders(List<ProductionOrder> productionOrders) {
+		this.productionOrders = productionOrders;
 	}
 }

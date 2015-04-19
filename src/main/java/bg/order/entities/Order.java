@@ -1,8 +1,10 @@
 package bg.order.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +27,7 @@ public class Order implements Serializable {
 	private int salary;
 	private int research;
 	private Map<Machine, Integer> buyMachines;
+	private List<ProductionOrder> productionOrders;
 
 	public Order() {
 		this.employee = 0;
@@ -79,5 +83,14 @@ public class Order implements Serializable {
 
 	public void setBuyMachines(Map<Machine, Integer> buyMachines) {
 		this.buyMachines = buyMachines;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public List<ProductionOrder> getProductionOrders() {
+		return productionOrders;
+	}
+
+	public void setProductionOrders(List<ProductionOrder> productionOrders) {
+		this.productionOrders = productionOrders;
 	}
 }

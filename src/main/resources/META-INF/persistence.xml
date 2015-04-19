@@ -28,6 +28,7 @@
         <class>bg.game.entities.FixedData</class>
         <class>bg.game.entities.FloatingData</class>
         <class>bg.order.entities.Order</class>
+        <class>bg.order.entities.ProductionOrder</class>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

@@ -55,7 +55,53 @@
 				</h:dataTable>
 
 				<h4>Production</h4>
+				<label>Production de marchandise</label><br /> <label>Quantité
+					à produire</label>
+				<h:inputText styleClass="form-control" id="productQuantity"
+					value='#{gameGeneralOrder.productQuantity}' />
+				<br /> <label>Qualité</label>
+				<h:inputText styleClass="form-control" id="productQuality"
+					value='#{gameGeneralOrder.productQuality}' />
+				<br /> <label>Publicité</label>
+				<h:inputText styleClass="form-control" id="productAdvertising"
+					value='#{gameGeneralOrder.productAdvertising}' />
+				<br /> <label>Prix de vente</label>
+				<h:inputText styleClass="form-control" id="productSellPrice"
+					value='#{gameGeneralOrder.productSellPrice}' />
+				<h:dataTable value="#{gameGeneralOrder.productionOrders}" var="p"
+					styleClass="table table-striped">
 
+					<h:column>
+						<!-- column header -->
+						<f:facet name="header">Nom du produit</f:facet>
+						<!-- row record -->
+                                #{p.product.name}
+                        </h:column>
+
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+                                #{p.quantity}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Qualité</f:facet>
+                                #{p.quality}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Publicité</f:facet>
+                                #{p.advertising}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Prix de vente</f:facet>
+                                #{p.sellPrice}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Appliquer</f:facet>
+						<h:commandButton action="#{gameGeneralOrder.productProduct()}"
+							styleClass="btn btn-warning" value="Appliquer">
+							<f:param name="productID" value="#{p.product.ident}" />
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
 
 				<h4>Autre</h4>
 				<label>Investissement Recherche et Dévellopement :</label><br />
