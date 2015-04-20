@@ -1,7 +1,9 @@
 package bg.company.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,7 +32,7 @@ public class Company implements Serializable {
 	private int investments;
 	private int employeeQuantity;
 	private Map<Machine, Integer> machineList;
-	private Map<Product, Integer> productList;
+	private List<StockedProduct> productList;
 	private double amende;
 	private double subvention;
 	private Order currentOrder;
@@ -40,7 +43,7 @@ public class Company implements Serializable {
 		this.employeeQuantity = 0;
 		this.investments = 0;
 		this.machineList = new HashMap<Machine, Integer>();
-		this.productList = new HashMap<Product, Integer>();
+		this.productList = new ArrayList<StockedProduct>();
 		this.amende = 0;
 		this.subvention = 0;
 		this.currentOrder = null;
@@ -157,12 +160,12 @@ public class Company implements Serializable {
 		this.machineList = machineList;
 	}
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	public Map<Product, Integer> getProductList() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public List<StockedProduct> getProductList() {
 		return productList;
 	}
 
-	public void setProductList(Map<Product, Integer> productList) {
+	public void setProductList(List<StockedProduct> productList) {
 		this.productList = productList;
 	}
 

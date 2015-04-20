@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import bg.company.entities.Product;
+import bg.company.entities.StockedProduct;
 import bg.company.interfaces.ProductManager;
 
 @Stateless(name = "ProductManager")
@@ -21,7 +22,7 @@ public class ProductManagerBean implements ProductManager {
 	public Product createProduct(String name, int cost, int dev, int fixedCost) {
 		Product product = new Product();
 		product.setName(name);
-		product.setPrice(cost);
+		product.setCost(cost);
 		product.setDevPrice(dev);
 		product.setFixedProductionCost(fixedCost);
 		entityManager.persist(product);
@@ -46,6 +47,15 @@ public class ProductManagerBean implements ProductManager {
 			entityManager.persist(product);
 		} else {
 			entityManager.merge(product);
+		}
+	}
+
+	@Override
+	public void saveStockedProduct(StockedProduct stockedProduct) {
+		if(entityManager.find(StockedProduct.class, stockedProduct.getIdent()) == null) {
+			entityManager.persist(stockedProduct);
+		} else {
+			entityManager.merge(stockedProduct);
 		}
 	}
 

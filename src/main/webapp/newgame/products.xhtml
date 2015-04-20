@@ -19,7 +19,7 @@
 					value='#{createGameJsfBean.productName}' />
 				<label>Prix des matières premières</label>
 				<h:inputText styleClass="form-control" id="cost"
-					value='#{createGameJsfBean.productPrice}'>
+					value='#{createGameJsfBean.productCost}'>
 					<f:convertNumber longOnly="true" minimum="0" />
 				</h:inputText>
 				<label>Coût fixe de production</label>
@@ -52,7 +52,7 @@
 
 			<h:column>
 				<f:facet name="header">Coût</f:facet>
-                                #{p.price}
+                                #{p.cost}
                         </h:column>
 
 			<h:column>

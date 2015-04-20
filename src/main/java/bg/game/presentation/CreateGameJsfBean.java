@@ -148,7 +148,7 @@ public class CreateGameJsfBean implements Serializable {
 	/****** Product creation *****/
 	/*****************************/
 	private String productName;
-	private int productPrice;
+	private int productCost;
 	private int productDev;
 	private int productFixedProductionCost;
 	private List<Product> products = new ArrayList<Product>();
@@ -161,7 +161,7 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le nom du produit est vide";
 			return "fail";
 		}
-		if (productPrice < 0) {
+		if (productCost < 0) {
 			this.errorMessage = "Le prix du produit est trop bas";
 			return "fail";
 		}
@@ -171,7 +171,7 @@ public class CreateGameJsfBean implements Serializable {
 		}
 
 		Product product = productManager.createProduct(productName,
-				productPrice, productDev, productFixedProductionCost);
+				productCost, productDev, productFixedProductionCost);
 		if (product == null) {
 			this.errorMessage = "Ce nom est déjà pris";
 			return "fail";
@@ -198,12 +198,12 @@ public class CreateGameJsfBean implements Serializable {
 		this.productName = productName;
 	}
 
-	public int getProductPrice() {
-		return productPrice;
+	public int getProductCost() {
+		return productCost;
 	}
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
+	public void setProductCost(int productCost) {
+		this.productCost = productCost;
 	}
 
 	public int getProductDev() {
@@ -249,7 +249,7 @@ public class CreateGameJsfBean implements Serializable {
 			this.errorMessage = "Le nom du produit est vide";
 			return "fail";
 		}
-		if (productPrice < 0) {
+		if (machinePrice < 0) {
 			this.errorMessage = "Le prix du produit est trop bas";
 			return "fail";
 		}

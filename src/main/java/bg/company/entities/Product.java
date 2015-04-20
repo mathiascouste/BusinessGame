@@ -16,30 +16,25 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 4656376279001993272L;
 	private Long ident;
 	private String name;
-	private int price;
 	private int devPrice;
-	private int advertising;
-	private int quality;
 	private int fixedProductionCost;
-	
+	private int cost;
+
 	public Product() {
 		this.name = "";
-		this.price = 0;
 		this.devPrice = 0;
-		this.advertising = 0;
-		this.quality = 0;
 		this.fixedProductionCost = 0;
+		this.setCost(0);
 	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getIdent() == null) ? 0 : getIdent().hashCode());
+		result = prime * result
+				+ ((getIdent() == null) ? 0 : getIdent().hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,10 +58,9 @@ public class Product implements Serializable {
 		return true;
 	}
 
-
 	@Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getIdent() {
 		return ident;
 	}
@@ -75,8 +69,8 @@ public class Product implements Serializable {
 		this.ident = ident;
 	}
 
-    @Column(name = "NAME")
-    @NotNull
+	@Column(name = "NAME")
+	@NotNull
 	public String getName() {
 		return name;
 	}
@@ -85,17 +79,8 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-    @Column(name = "PRICE")
-    @NotNull
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-    @Column(name = "DEV_PRICE")
-    @NotNull
+	@Column(name = "DEV_PRICE")
+	@NotNull
 	public int getDevPrice() {
 		return devPrice;
 	}
@@ -104,33 +89,23 @@ public class Product implements Serializable {
 		this.devPrice = devPrice;
 	}
 
-    @Column(name = "ADVERTISING")
-    @NotNull
-	public int getAdvertising() {
-		return advertising;
-	}
-
-	public void setAdvertising(int advertising) {
-		this.advertising = advertising;
-	}
-
-    @Column(name = "QUALITY")
-    @NotNull
-	public int getQuality() {
-		return quality;
-	}
-
-	public void setQuality(int quality) {
-		this.quality = quality;
-	}
-
-    @Column(name = "FIXED_PRODUCTION_COST")
-    @NotNull
+	@Column(name = "FIXED_PRODUCTION_COST")
+	@NotNull
 	public int getFixedProductionCost() {
 		return fixedProductionCost;
 	}
 
 	public void setFixedProductionCost(int fixedProductionCost) {
 		this.fixedProductionCost = fixedProductionCost;
+	}
+
+	@Column(name = "COST")
+	@NotNull
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 }

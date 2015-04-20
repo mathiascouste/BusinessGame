@@ -1,6 +1,8 @@
 package bg.game.implem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -8,11 +10,13 @@ import javax.ejb.Stateless;
 
 import bg.company.entities.Company;
 import bg.company.entities.Machine;
+import bg.company.entities.StockedProduct;
 import bg.company.interfaces.CompanyManager;
 import bg.game.entities.Game;
 import bg.game.interfaces.AdministrateGame;
 import bg.game.interfaces.SimulateYear;
 import bg.order.entities.Order;
+import bg.order.entities.ProductionOrder;
 
 @Stateless(name = "SimulateYear")
 public class SimulateYearBean implements SimulateYear, Serializable {
@@ -28,6 +32,7 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 		// Faire les dépenses
 		this.applyGainAndLoss(game);
 
+		this.applyProduction(game);
 		// TODO : Produire les produits
 
 		// TODO : Vendre sur le marché mondial
@@ -39,6 +44,54 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 		// TODO : Calculer coût des stocks
 
 		this.saveChange(game);
+	}
+
+	private void applyProduction(Game game) {
+		for (Company c : game.getCompanies()) {
+			int productionCapacity = calculateProductionCapacity(c);
+			Order order = c.getValidatedOrder();
+			List<StockedProduct> stockedProducts = new ArrayList<StockedProduct>();
+			double cost = 0;
+			for (ProductionOrder pO : order.getProductionOrders()) {
+				int toProduce = pO.getQuantity();
+				if (toProduce >= productionCapacity) {
+					productionCapacity -= toProduce;
+				} else {
+					toProduce = productionCapacity;
+					productionCapacity = 0;
+				}
+				if (toProduce <= 0) {
+					break;
+				}
+				cost += pO.getProduct().getCost() * toProduce;
+				cost += pO.getAdvertising();
+				cost += pO.getQuality();
+				StockedProduct sP = new StockedProduct(pO.getProduct(),
+						toProduce);
+				sP.setAdvertising(pO.getAdvertising() / toProduce);
+				sP.setQuality(pO.getQuality() / toProduce);
+				sP.setPrice(pO.getSellPrice());
+				stockedProducts.add(sP);
+			}
+			c.setTreasury(c.getTreasury() - cost);
+			c.setProductList(stockedProducts);
+		}
+	}
+
+	private int calculateProductionCapacity(Company c) {
+		int employeesNeeded = 0;
+		int productionCapacityMax = 0;
+		for (Map.Entry<Machine, Integer> entry : c.getMachineList().entrySet()) {
+			Machine m = entry.getKey();
+			int quantity = entry.getValue().intValue();
+			employeesNeeded += quantity * m.getEmployeeNeeded();
+			productionCapacityMax += quantity * m.getProductionCapacity();
+		}
+		double coef = c.getEmployeeQuantity() / employeesNeeded;
+		if (coef > 1) {
+			coef = 1;
+		}
+		return (int) (productionCapacityMax * coef);
 	}
 
 	int payAndApplyEmployee(Company company) {

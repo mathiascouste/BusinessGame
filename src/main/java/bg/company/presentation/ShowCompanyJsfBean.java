@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import bg.company.entities.Company;
 import bg.company.entities.Machine;
+import bg.company.entities.StockedProduct;
 import bg.company.interfaces.CompanyManager;
 
 @ViewScoped
@@ -107,5 +108,9 @@ public class ShowCompanyJsfBean implements Serializable {
 			}
 		}
 		return entries;
+	}
+
+	public List<StockedProduct> getProductList() {
+		return getCompany().getProductList();
 	}
 }

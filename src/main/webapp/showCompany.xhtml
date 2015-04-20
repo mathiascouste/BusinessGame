@@ -27,6 +27,27 @@
                                 #{e.quantity}
             </h:column>
 		</h:dataTable>
+		<br/>
+		<label>Quantité de produit en stocks :</label>
+		<h:dataTable value="#{showCompanyJsfBean.getProductList()}" var="p"
+			styleClass="table table-striped">
+			<h:column>
+				<f:facet name="header">Produit</f:facet>
+				#{p.product.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+				#{p.quantity}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Qualité</f:facet>
+				#{p.quality}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Publicité</f:facet>
+				#{p.advertising}
+			</h:column>
+		</h:dataTable>
 		<br />
 		<!--label>Quantité de produit en stock :</label>
 		<c:forEach items="#{yourBean.map}" var="entry">
