@@ -33,17 +33,28 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 		this.applyGainAndLoss(game);
 
 		this.applyProduction(game);
-		// TODO : Produire les produits
 
 		// TODO : Vendre sur le marché mondial
+		this.worldWideMarket(game);
+
+		// TODO : Calculer coût des stocks
 
 		// TODO : Evaluer bénéfice pour payer impôt et actionaires
 
 		// TODO : Calculer interêt en cas d'endetement
 
-		// TODO : Calculer coût des stocks
-
 		this.saveChange(game);
+	}
+
+	private void worldWideMarket(Game game) {
+		for (Company c : game.getCompanies()) {
+			double gain = 0;
+			for (StockedProduct sP : c.getProductList()) {
+				gain += sP.getQuantity() * sP.getPrice();
+				sP.setQuantity(0);
+			}
+			c.setTreasury(c.getTreasury() + gain);
+		}
 	}
 
 	private void applyProduction(Game game) {
@@ -63,6 +74,7 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 				if (toProduce <= 0) {
 					break;
 				}
+				cost += pO.getProduct().getFixedProductionCost();
 				cost += pO.getProduct().getCost() * toProduce;
 				cost += pO.getAdvertising();
 				cost += pO.getQuality();

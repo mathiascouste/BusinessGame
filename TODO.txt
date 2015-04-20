@@ -18,33 +18,34 @@ DONE :
 		- mettre amande & subvention [OK]
 
 	# V0.0.4
-	[ordre && cycle annuel]
 	- creer un ordre général [OK]
 	- modifier un ordre général [FORGET IT]
 	- valider un ordre général [OK]
 
-TODO :
-	# V0.0.4
-	Fonctionnalités pour simulation : [fait pour order / appliqué dans la simulation]
-		-> choisir le nombre de salarié [2/2]
-		-> choisir la paie des salariés [2/2]
-		-> choisir le montant de financement de la R&D [2/2]
-		-> acheter des machines [2/2]
-		-> choisir le nombre produit à produire, sa qualité, sa publicité [2/2]
-		-> etc ...
-
 	# V0.0.5
+	Fonctionnalités pour simulation : [fait pour order / appliqué dans la simulation]	[OK]
+		-> choisir le nombre de salarié [2/2]						[OK]
+		-> choisir la paie des salariés [2/2]						[OK]
+		-> choisir le montant de financement de la R&D [2/2]				[OK]
+		-> acheter des machines [2/2]							[OK]
+		-> choisir le nombre produit à produire, sa qualité, sa publicité [2/2]		[OK]
+TODO :
+        # V0.0.6
+        [interface utilisateur d'administration d'une entreprise]
+	- template pour menu entreprise
+	- creer un ordre
+	- valider un ordre
+	- voir compte rendu présent de l'entreprise
+
+	# V0.0.7
+	- générer comptes de résultats annuels des entreprises
+
+	# V0.0.8
 	- simuler un cycle annuel [avec tous les produits vendus]
 	- parametrer variables flottantes
 
-	# V0.0.6
-	- interface utilisateur d'administration d'une entreprise
-
-	# V0.0.6
-	- simuler un cycle annuel [avec produits pas tous vendus]
-
-	# V0.0.7
+	# V0.0.9
 	- generer les rapports annuels des entreprises
 
-	# V0.0.8
+	# V0.1.0
 	- visualiser les statistiques
