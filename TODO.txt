@@ -29,12 +29,14 @@ DONE :
 		-> choisir le montant de financement de la R&D [2/2]				[OK]
 		-> acheter des machines [2/2]							[OK]
 		-> choisir le nombre produit à produire, sa qualité, sa publicité [2/2]		[OK]
-TODO :
         # V0.0.6
         [interface utilisateur d'administration d'une entreprise]
 	- template pour menu entreprise
 	- creer un ordre
 	- valider un ordre
+
+TODO :
+	# V0.0.6
 	- voir compte rendu présent de l'entreprise
 
 	# V0.0.7

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/companyAdministrationHeader.xhtml">
+
+	<ui:define name="content">
+
+		<h2>Passer un order général</h2>
+		<br /> Connecté ? #{joinCompanyJsfBean.isConnected()}
+		<br />
+
+		<h:form role="form">
+			<div class="form-group">
+				<h4>Social</h4>
+				<label>Nombre d'employés :</label><br />
+				<h:inputText styleClass="form-control" id="employee"
+					value='#{companyOrderJsfBean.employee}' />
+				<label>Salaire des employés :</label><br />
+				<h:inputText styleClass="form-control" id="salary"
+					value='#{companyOrderJsfBean.salary}' />
+
+
+				<h4>Matériel</h4>
+				<label>Achat de machines</label><br /> <label>Quantité à
+					acheter</label>
+				<h:inputText styleClass="form-control" id="machineQuantity"
+					value='#{companyOrderJsfBean.machineQuantity}' />
+				<h:dataTable value="#{companyOrderJsfBean.machines}" var="m"
+					styleClass="table table-striped">
+
+					<h:column>
+						<!-- column header -->
+						<f:facet name="header">Nom</f:facet>
+						<!-- row record -->
+                                #{m.name}
+                        </h:column>
+
+					<h:column>
+						<f:facet name="header">Prix</f:facet>
+                                #{m.price}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+                                #{companyOrderJsfBean.getMachineQuantity(m)}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Appliquer</f:facet>
+						<h:commandButton action="#{companyOrderJsfBean.buyMachine()}"
+							styleClass="btn btn-warning" value="Appliquer">
+							<f:param name="machineID" value="#{m.ident}" />
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+
+				<h4>Production</h4>
+				<label>Production de marchandise</label><br /> <label>Quantité
+					à produire</label>
+				<h:inputText styleClass="form-control" id="productQuantity"
+					value='#{companyOrderJsfBean.productQuantity}' />
+				<br /> <label>Qualité</label>
+				<h:inputText styleClass="form-control" id="productQuality"
+					value='#{companyOrderJsfBean.productQuality}' />
+				<br /> <label>Publicité</label>
+				<h:inputText styleClass="form-control" id="productAdvertising"
+					value='#{companyOrderJsfBean.productAdvertising}' />
+				<br /> <label>Prix de vente</label>
+				<h:inputText styleClass="form-control" id="productSellPrice"
+					value='#{companyOrderJsfBean.productSellPrice}' />
+				<h:dataTable value="#{companyOrderJsfBean.productionOrders}" var="p"
+					styleClass="table table-striped">
+
+					<h:column>
+						<!-- column header -->
+						<f:facet name="header">Nom du produit</f:facet>
+						<!-- row record -->
+                                #{p.product.name}
+                        </h:column>
+
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+                                #{p.quantity}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Qualité</f:facet>
+                                #{p.quality}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Publicité</f:facet>
+                                #{p.advertising}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Prix de vente</f:facet>
+                                #{p.sellPrice}
+                        </h:column>
+					<h:column>
+						<f:facet name="header">Appliquer</f:facet>
+						<h:commandButton action="#{companyOrderJsfBean.productProduct()}"
+							styleClass="btn btn-warning" value="Appliquer">
+							<f:param name="productID" value="#{p.product.ident}" />
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+
+				<h4>Autre</h4>
+				<label>Investissement Recherche et Dévellopement :</label><br />
+				<h:inputText styleClass="form-control" id="research"
+					value='#{companyOrderJsfBean.research}' />
+
+
+				<h:commandButton action="#{companyOrderJsfBean.apply()}"
+					styleClass="btn btn-primary"
+					value="Enregistrer l'ordre" />
+
+				<h:commandButton action="#{companyOrderJsfBean.validateOrder()}"
+					styleClass="btn btn-warning"
+					value="Valider l'ordre" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

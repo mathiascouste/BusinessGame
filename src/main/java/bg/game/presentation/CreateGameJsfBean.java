@@ -111,9 +111,9 @@ public class CreateGameJsfBean implements Serializable {
 	}
 
 	public String goToProduct() {
-		System.out.println(this.teams.size());
 		if (this.teams.size() == 0) {
 			this.errorMessage = "Il faut créer un moins une équipe";
+			System.out.println("FAIL : There is no team selected");
 			return "fail";
 		} else {
 			return "success";
@@ -159,14 +159,17 @@ public class CreateGameJsfBean implements Serializable {
 	public String addProduct() {
 		if (productName.trim().isEmpty()) {
 			this.errorMessage = "Le nom du produit est vide";
+			System.out.println("FAIL : The product 's name is empty");
 			return "fail";
 		}
 		if (productCost < 0) {
 			this.errorMessage = "Le prix du produit est trop bas";
+			System.out.println("FAIL : The product 's price is too low");
 			return "fail";
 		}
 		if (productDev < 0) {
 			this.errorMessage = "Le coût de développement du produit est trop bas";
+			System.out.println("FAIL : The product 's dev cost is too low");
 			return "fail";
 		}
 
@@ -174,6 +177,7 @@ public class CreateGameJsfBean implements Serializable {
 				productCost, productDev, productFixedProductionCost);
 		if (product == null) {
 			this.errorMessage = "Ce nom est déjà pris";
+			System.out.println("FAIL : The product 's name is still use");
 			return "fail";
 		}
 		this.products.add(product);
@@ -184,6 +188,7 @@ public class CreateGameJsfBean implements Serializable {
 	public String goToMachine() {
 		if (this.products.size() == 0) {
 			this.errorMessage = "Il faut créer un moins une machine";
+			System.out.println("FAIL : You need at least one machine");
 			return "fail";
 		} else {
 			return "success";
@@ -276,7 +281,8 @@ public class CreateGameJsfBean implements Serializable {
 
 	public String goToFixData() {
 		if (this.machines.size() == 0) {
-			this.errorMessage = "Il faut créer un moins une équipe";
+			this.errorMessage = "Il faut créer un moins une machine";
+			System.out.println("FAIL : You need at least one machine");
 			return "fail";
 		} else {
 			return "success";

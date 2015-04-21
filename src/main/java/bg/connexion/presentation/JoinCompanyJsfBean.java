@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.servlet.http.Cookie;
 
 import tools.CookieHelper;
 
@@ -22,6 +23,12 @@ public class JoinCompanyJsfBean implements Serializable {
 	@EJB
 	Connexion connexion;
 
+	public String logout() {
+		new CookieHelper().getCookie("game_ident").setValue("");
+		new CookieHelper().getCookie("game_password").setValue("");
+		return "logout";
+	}
+
 	public String connect() {
 		Long companyID = connexion.connectToCompany(new Long(gameIdent),
 				companyName, companyPassword);
@@ -31,7 +38,34 @@ public class JoinCompanyJsfBean implements Serializable {
 			new CookieHelper().setCookie("company_password", companyPassword);
 			return "success";
 		}
+		System.out.println("FAIL : cannot connect to this company");
 		return "fail";
+	}
+
+	public String isConnected() {
+
+		String gameID = "";
+		String companyID = "";
+		String companyPassword = "";
+		Cookie cookie = new CookieHelper().getCookie("game_ident");
+		if (cookie != null) {
+			gameID = cookie.getValue();
+		}
+		cookie = new CookieHelper().getCookie("company_ident");
+		if (cookie != null) {
+			companyID = cookie.getValue();
+		}
+		cookie = new CookieHelper().getCookie("company_password");
+		if (cookie != null) {
+			companyPassword = cookie.getValue();
+		}
+		if (connexion.connectToCompany(new Long(gameID), companyID,
+				companyPassword) != null) {
+			return "success";
+		} else {
+			System.out.println("FAIL : connected to no company");
+			return "fail";
+		}
 	}
 
 	public String getGameIdent() {

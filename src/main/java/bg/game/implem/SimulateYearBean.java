@@ -99,14 +99,19 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 			employeesNeeded += quantity * m.getEmployeeNeeded();
 			productionCapacityMax += quantity * m.getProductionCapacity();
 		}
-		double coef = c.getEmployeeQuantity() / employeesNeeded;
+		double coef = 0;
+		if (employeesNeeded == 0) {
+			coef = 1;
+		} else {
+			coef = c.getEmployeeQuantity() / employeesNeeded;
+		}
 		if (coef > 1) {
 			coef = 1;
 		}
 		return (int) (productionCapacityMax * coef);
 	}
 
-	int payAndApplyEmployee(Company company) {
+	private int payAndApplyEmployee(Company company) {
 		int loss = 0;
 		int addEmployee = company.getValidatedOrder().getEmployee();
 		if (addEmployee < 0) {

@@ -43,6 +43,7 @@ public class GameCompaniesJsfBean implements Serializable {
 
 	public String giveBonus() {
 		if(this.getGame() == null) {
+			System.out.println("FAIL : Not connected to any game");
 			return "fail";
 		}
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -63,6 +64,7 @@ public class GameCompaniesJsfBean implements Serializable {
 			}
 		}
 
+		System.out.println("FAIL : No company of this ident");
 		return "fail";
 	}
 

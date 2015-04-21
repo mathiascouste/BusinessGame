@@ -44,5 +44,11 @@
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
+  <!-- Many faces-configs -->
+  <context-param> 
+	<param-name>javax.faces.CONFIG_FILES</param-name> 
+	<param-value>/WEB-INF/faces-config.xml,/WEB-INF/company_faces-config.xml</param-value> 
+  </context-param>
 
 </web-app>

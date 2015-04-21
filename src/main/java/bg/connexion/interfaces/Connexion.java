@@ -6,4 +6,5 @@ import javax.ejb.Local;
 public interface Connexion {
 	public Long connectToGame(Long ident, String password);
 	public Long connectToCompany(Long gameIdent, String companyName, String password);
+	public Long connectToCompany(Long companyIdent, String password);
 }

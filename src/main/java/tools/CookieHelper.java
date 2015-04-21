@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CookieHelper {
 
+	public void deleteCookie(String name) {
+		setCookie(name, "", 0);
+	}
+	
 	public void setCookie(String name, String value) {
 		setCookie(name, value, -1);
 	}
-
+	
 	public void setCookie(String name, String value, int expiry) {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();

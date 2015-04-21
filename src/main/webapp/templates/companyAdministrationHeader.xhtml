@@ -30,28 +30,15 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/game/stats.jsf">Statistiques</a></li>
-					<li><a href="/game/companies.jsf">Les entreprises</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Administrer<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="/game/generalOrder.jsf">Passer un ordre général</a></li>
-							<li class="divider"></li>
-							<li><a href="">Les produits</a></li>
-							<li><a href="">Les machines</a></li>
-							<li class="divider"></li>
-							<li><a href="">Données fixes</a></li>
-							<li><a href="">Données variables</a></li>
-							<li class="divider"></li>
-							<li><a href="">Quitter La partie</a></li>
-						</ul></li>
+					<li><a href="/company/stats.jsf">Statistiques</a></li>
+					<li><a href="/company/companies.jsf">Mon entreprise</a></li>
+					<li><a href="/company/resultats.jsf">Comptes de résultats</a></li>
+					<li><a href="/company/order.jsf">Passer un ordre</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/game/nextTurn.jsf"><button
-								class="btn btn-primary">Prochain tour</button></a></li>
 					<li><h:form role="form">
-							<h:commandButton action="#{joinGameJsfBean.logout()}"
-								class="btn btn-warning" value="Déconnexion" />
+							<h:commandButton action="#{joinCompanyJsfBean.logout()}"
+								styleClass="btn btn-warning" value="Déconnexion" />
 						</h:form></li>
 				</ul>
 			</div>

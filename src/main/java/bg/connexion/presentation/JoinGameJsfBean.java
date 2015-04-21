@@ -34,6 +34,7 @@ public class JoinGameJsfBean implements Serializable {
 			new CookieHelper().setCookie("game_password", password);
 			return "success";
 		} else {
+			System.out.println("FAIL : cannot connect to this game");
 			return "fail";
 		}
 	}
@@ -52,6 +53,7 @@ public class JoinGameJsfBean implements Serializable {
 		if (connexion.connectToGame(new Long(gameIdent), game_password) != null) {
 			return "success";
 		} else {
+			System.out.println("FAIL : this game is not connected");
 			return "fail";
 		}
 	}

@@ -46,4 +46,16 @@ public class ConnexionBean implements Connexion, Serializable {
 		return null;
 	}
 
+	@Override
+	public Long connectToCompany(Long companyIdent, String password) {
+		Company company = entityManager.find(Company.class, companyIdent);
+		if (company == null) {
+			return null;
+		}
+		if (!company.getPassword().equals(password)) {
+			return null;
+		}
+		return company.getIdent();
+	}
+
 }

@@ -1,4 +1,4 @@
-package bg.game.presentation;
+package bg.company.presentation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import bg.order.interfaces.OrderManager;
 
 @SessionScoped
 @ManagedBean
-public class GameGeneralOrder implements Serializable {
+public class CompanyOrderJsfBean implements Serializable {
 	private static final long serialVersionUID = -4981963404610900131L;
 	private int employee = 0;
 	private int salary = 0;
@@ -34,8 +34,9 @@ public class GameGeneralOrder implements Serializable {
 	private int machineQuantity = 0;
 	private List<Company> companies;
 	private Map<Machine, Integer> buyMachines = new HashMap<Machine, Integer>();
-	private List<Machine> machines;
+	private List<Machine> machines = new ArrayList<Machine>();
 	private Game game;
+	private Company company;
 	private int productQuantity = 0;
 	private int productQuality = 0;
 	private int productAdvertising = 0;
@@ -54,7 +55,7 @@ public class GameGeneralOrder implements Serializable {
 	@EJB
 	OrderManager orderManager;
 
-	public GameGeneralOrder() {
+	public CompanyOrderJsfBean() {
 		this.companies = new ArrayList<Company>();
 	}
 
@@ -74,7 +75,6 @@ public class GameGeneralOrder implements Serializable {
 				this.productAdvertising = this.productQuality = this.productQuantity = this.productSellPrice = 0;
 			}
 		}
-
 		return "success";
 	}
 
@@ -93,7 +93,7 @@ public class GameGeneralOrder implements Serializable {
 			}
 		}
 		if (thisMachine == null) {
-			System.out.println("FAIL : Machine is null");
+			System.out.println("FAIL : this machine does not exist");
 			return "fail";
 		}
 		this.buyMachines.put(thisMachine, new Integer(machineQuantity));
@@ -102,11 +102,28 @@ public class GameGeneralOrder implements Serializable {
 		return "success";
 	}
 
+	public String validateOrder() {
+		if(this.getCompany() == null || this.getCompany().getCurrentOrder() == null) {
+			System.out.println("FAIL : this company does not exist or its current order is NULL");
+			return "fail";
+		}
+		this.company.setValidatedOrder(this.company.getCurrentOrder());
+		this.company.setCurrentOrder(null);
+		
+		return "success";
+	}
+	
 	public String apply() {
 		if (this.getGame() == null) {
+			System.out.println("FAIL : this game does not exist");
+			return "fail";
+		}
+		if (this.getCompany() == null) {
+			System.out.println("FAIL : this company does not exist");
 			return "fail";
 		}
 		if (salary < this.game.getFixedData().getMinimalSalary()) {
+			System.out.println("FAIL : the minimal salary is not enough high");
 			return "fail";
 		}
 
@@ -117,10 +134,8 @@ public class GameGeneralOrder implements Serializable {
 		order.setBuyMachines(buyMachines);
 		order.setProductionOrders(productionOrders);
 
-		for (Company c : this.game.getCompanies()) {
-			c.setValidatedOrder(order);
-			companyManager.saveCompany(c);
-		}
+		this.getCompany().setCurrentOrder(order);
+		companyManager.saveCompany(this.company);
 		orderManager.saveOrder(order);
 
 		return "success";
@@ -130,20 +145,41 @@ public class GameGeneralOrder implements Serializable {
 		if (this.game != null) {
 			return this.game;
 		}
-		Cookie cookie = new CookieHelper().getCookie("game_ident");
 		String gameID = "";
-		String gamePassword = "";
+		Cookie cookie = new CookieHelper().getCookie("game_ident");
 		if (cookie != null) {
 			gameID = cookie.getValue();
 		}
-		cookie = new CookieHelper().getCookie("game_password");
-		if (cookie != null) {
-			gamePassword = cookie.getValue();
-		}
-		Long gameIDL = connexion.connectToGame(new Long(gameID), gamePassword);
-		this.game = gameAdministration.findGameByID(gameIDL);
+		this.game = gameAdministration.findGameByID(new Long(gameID));
 
 		return this.game;
+	}
+
+	private Company getCompany() {
+		if (this.company != null) {
+			return this.company;
+		}
+		String gameID = "";
+		String companyID = "";
+		String companyPassword = "";
+		Cookie cookie = new CookieHelper().getCookie("game_ident");
+		if (cookie != null) {
+			gameID = cookie.getValue();
+		}
+		cookie = new CookieHelper().getCookie("company_ident");
+		if (cookie != null) {
+			companyID = cookie.getValue();
+		}
+		cookie = new CookieHelper().getCookie("company_password");
+		if (cookie != null) {
+			companyPassword = cookie.getValue();
+		}
+		Long companyIDL = connexion.connectToCompany(new Long(companyID),
+				companyPassword);
+		this.game = gameAdministration.findGameByID(new Long(gameID));
+		this.company = companyManager.findCompanyByID(companyIDL);
+
+		return this.company;
 	}
 
 	public int getEmployee() {
@@ -155,6 +191,12 @@ public class GameGeneralOrder implements Serializable {
 	}
 
 	public int getSalary() {
+		if(this.getCompany() != null && this.company.getCurrentOrder() != null) {
+			salary = this.company.getCurrentOrder().getSalary();
+		}
+		if(this.getCompany() != null && this.company.getValidatedOrder() != null) {
+			salary = this.company.getValidatedOrder().getSalary();
+		}
 		return salary;
 	}
 
