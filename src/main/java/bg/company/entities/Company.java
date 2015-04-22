@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import bg.order.entities.Order;
+import bg.order.entities.ProfitAndLossStatement;
 
 @Entity
 @Table(name = "COMPANY")
@@ -37,6 +38,8 @@ public class Company implements Serializable {
 	private double subvention;
 	private Order currentOrder;
 	private Order validatedOrder;
+	private int salary;
+	private List<ProfitAndLossStatement> pastStatements;
 
 	public Company() {
 		this.treasury = 0;
@@ -48,6 +51,8 @@ public class Company implements Serializable {
 		this.subvention = 0;
 		this.currentOrder = null;
 		this.validatedOrder = null;
+		this.salary = 0;
+		this.pastStatements = new ArrayList<ProfitAndLossStatement>();
 	}
 
 	@Override
@@ -203,5 +208,28 @@ public class Company implements Serializable {
 
 	public void setValidatedOrder(Order validatedOrder) {
 		this.validatedOrder = validatedOrder;
+	}
+
+	@Column(name = "SALARY")
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public List<ProfitAndLossStatement> getPastStatements() {
+		return pastStatements;
+	}
+
+	public void setPastStatements(List<ProfitAndLossStatement> pastStatements) {
+		this.pastStatements = pastStatements;
+	}
+
+	public double calculateStockValue() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

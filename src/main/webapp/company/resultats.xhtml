@@ -3,11 +3,105 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/templates/companyAdministrationHeader.xhtml">
 
 	<ui:define name="content">
 
-		<label for="name">PAGE DE RESULTAT DE L'ADMINISTRATION D'ENTREPRISE</label>
+		<label for="name">PAGE DE RESULTAT DE L'ADMINISTRATION
+			D'ENTREPRISE</label>
+		<h:form role="form">
+			<div class="form-group">
+				<label>Choix de l'année</label><br />
+				<h:selectOneMenu value="#{resultatJsfBean.selectedYear}">
+					<f:selectItems value="#{resultatJsfBean.years}" />
+				</h:selectOneMenu>
+
+			</div>
+			<h:commandButton action="#{resultatJsfBean.selectYear()}"
+				styleClass="btn btn-primary" value="Choisir l'année" />
+		</h:form>
 		<br />
+		<c:choose>
+			<c:when test="#{resultatJsfBean.years.size() gt 0}">
+				<table border="1" cellpadding="15">
+					<tr>
+						<td>Charges</td>
+						<td>Exercice<br />#{resultatJsfBean.currentStatement.year}
+						</td>
+						<td>Produit</td>
+						<td>Exercice<br />#{resultatJsfBean.currentStatement.year}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<u>Charge d'exploitation :</u><br />
+							Achat de marchandise<br />
+							Variation de stock<br />
+							Charge sociale<br />
+							Amortissements<br />
+							Coûts de production
+						</td>
+						<td valign="top">
+							<br />
+							#{resultatJsfBean.currentStatement.marchandise}<br />
+							#{resultatJsfBean.currentStatement.stockVariation}<br />
+							#{resultatJsfBean.currentStatement.payroll}<br />
+							#{resultatJsfBean.currentStatement.amortissement}<br />
+							#{resultatJsfBean.currentStatement.productionCost}</td>
+						<td valign="top"><u>Produit d'exploitation :</u><br />
+							Vente de marchandise<br /></td>
+						<td valign="top">
+							<br />
+							#{resultatJsfBean.currentStatement.selling}
+						</td>
+					</tr>
+					<tr>
+						<td><b>Total charges d'exploitation</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateExploitationLoss()}</b></td>
+						<td><b>Total produits d'exploitation</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateExploitationProfit()}</b></td>
+					</tr>
+					<tr>
+						<td>
+							<u>Charge financière:</u><br />
+							Interêt
+						</td>
+						<td valign="top">
+							<br />
+							#{resultatJsfBean.currentStatement.interest}</td>
+						<td valign="top"><u>Produit financier :</u></td>
+						<td valign="top">
+						</td>
+					</tr>
+					<tr>
+						<td><b>Total charges financières</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateFinancialLoss()}</b></td>
+						<td><b>Total produits financiers</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateFinancialProfit()}</b></td>
+					</tr>
+					<tr>
+						<td>
+							<u>Charge exceptionnelles:</u><br />
+							Amendes
+						</td>
+						<td valign="top">
+							<br />
+							#{resultatJsfBean.currentStatement.amende}</td>
+						<td><u>Produits exceptionnels :</u><br/>
+							Subventions
+						</td>
+						<td valign="top"><br/>#{resultatJsfBean.currentStatement.subvention}
+						</td>
+					</tr>
+					<tr>
+						<td><b>Total charges exceptionnelles</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateExceptionalLoss()}</b></td>
+						<td><b>Total produits exceptionnels</b></td>
+						<td><b>#{resultatJsfBean.currentStatement.calculateExceptionalProfit()}</b></td>
+					</tr>
+				</table>
+			</c:when>
+		</c:choose>
 	</ui:define>
 </ui:composition>

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import bg.order.entities.Order;
+import bg.order.entities.ProfitAndLossStatement;
 import bg.order.interfaces.OrderManager;
 
 @Stateless
@@ -29,6 +30,15 @@ public class OrderManagerBean implements OrderManager, Serializable {
 			entityManager.persist(order);
 		} else {
 			entityManager.merge(order);
+		}
+	}
+
+	@Override
+	public void saveProfitAndLossStatement(ProfitAndLossStatement pls) {
+		if(entityManager.find(ProfitAndLossStatement.class, pls.getIdent()) == null) {
+			entityManager.persist(pls);
+		} else {
+			entityManager.merge(pls);
 		}
 	}
 

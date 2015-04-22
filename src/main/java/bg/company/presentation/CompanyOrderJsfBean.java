@@ -191,11 +191,8 @@ public class CompanyOrderJsfBean implements Serializable {
 	}
 
 	public int getSalary() {
-		if(this.getCompany() != null && this.company.getCurrentOrder() != null) {
-			salary = this.company.getCurrentOrder().getSalary();
-		}
-		if(this.getCompany() != null && this.company.getValidatedOrder() != null) {
-			salary = this.company.getValidatedOrder().getSalary();
+		if(this.getCompany() != null) {
+			salary = this.company.getSalary();
 		}
 		return salary;
 	}

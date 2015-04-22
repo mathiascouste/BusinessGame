@@ -37,7 +37,7 @@ DONE :
 
 TODO :
 	# V0.0.6
-	- voir compte rendu présent de l'entreprise
+	- voir compte rendu présent de l'entreprise [80%]
 
 	# V0.0.7
 	- générer comptes de résultats annuels des entreprises

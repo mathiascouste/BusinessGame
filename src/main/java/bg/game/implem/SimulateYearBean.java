@@ -2,6 +2,7 @@ package bg.game.implem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,18 +18,26 @@ import bg.game.interfaces.AdministrateGame;
 import bg.game.interfaces.SimulateYear;
 import bg.order.entities.Order;
 import bg.order.entities.ProductionOrder;
+import bg.order.entities.ProfitAndLossStatement;
+import bg.order.interfaces.OrderManager;
 
 @Stateless(name = "SimulateYear")
 public class SimulateYearBean implements SimulateYear, Serializable {
 	private static final long serialVersionUID = 1L;
+	private Map<Company, ProfitAndLossStatement> companiesStatements = new HashMap<Company, ProfitAndLossStatement>();
+	private Map<Company, Double> startsTreasury = new HashMap<Company, Double>();
+	private Map<Company, Double> stockValue = new HashMap<Company, Double>();
 
 	@EJB
 	CompanyManager companyManager;
 	@EJB
 	AdministrateGame gameManager;
+	@EJB
+	OrderManager orderManager;
 
 	@Override
 	public void simulate(Game game) {
+		this.prepearSimulation(game);
 		// Faire les dépenses
 		this.applyGainAndLoss(game);
 
@@ -41,24 +50,52 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 
 		// TODO : Evaluer bénéfice pour payer impôt et actionaires
 
-		// TODO : Calculer interêt en cas d'endetement
+		// TODO : Calculer interêt en cas d'endetement et appliquer la
+		// dépréciation dans le profitAndLossStatement
+
+		// TODO : faire viellir les machine et appliquer la dépréciation dans le
+		// profitAndLossStatement
+
+		this.lastBeforeDie(game);
 
 		this.saveChange(game);
 	}
 
+	private void lastBeforeDie(Game game) {
+		for (Company c : game.getCompanies()) {
+			ProfitAndLossStatement pls = companiesStatements.get(c);
+			pls.setStockVariation(stockValue.get(c).doubleValue()
+					- c.calculateStockValue());
+			c.getPastStatements().add(pls);
+		}
+		game.setCurrentYear(game.getCurrentYear() + 1);
+	}
+
+	private void prepearSimulation(Game game) {
+		for (Company c : game.getCompanies()) {
+			this.companiesStatements.put(c,
+					new ProfitAndLossStatement(game.getCurrentYear()));
+			this.startsTreasury.put(c, new Double(c.getTreasury()));
+			this.stockValue.put(c, new Double(c.calculateStockValue()));
+		}
+	}
+
 	private void worldWideMarket(Game game) {
 		for (Company c : game.getCompanies()) {
+			ProfitAndLossStatement pls = companiesStatements.get(c);
 			double gain = 0;
 			for (StockedProduct sP : c.getProductList()) {
 				gain += sP.getQuantity() * sP.getPrice();
 				sP.setQuantity(0);
 			}
+			pls.setSelling(gain);
 			c.setTreasury(c.getTreasury() + gain);
 		}
 	}
 
 	private void applyProduction(Game game) {
 		for (Company c : game.getCompanies()) {
+			ProfitAndLossStatement pls = companiesStatements.get(c);
 			int productionCapacity = calculateProductionCapacity(c);
 			Order order = c.getValidatedOrder();
 			List<StockedProduct> stockedProducts = new ArrayList<StockedProduct>();
@@ -75,7 +112,11 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 					break;
 				}
 				cost += pO.getProduct().getFixedProductionCost();
+				pls.setProductionCost(pls.getProductionCost()
+						+ pO.getProduct().getFixedProductionCost());
 				cost += pO.getProduct().getCost() * toProduce;
+				pls.setMarchandise(pls.getMarchandise()
+						+ pO.getProduct().getCost() * toProduce);
 				cost += pO.getAdvertising();
 				cost += pO.getQuality();
 				StockedProduct sP = new StockedProduct(pO.getProduct(),
@@ -131,16 +172,21 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 
 	private void applyGainAndLoss(Game game) {
 		for (Company c : game.getCompanies()) {
+			ProfitAndLossStatement pls = companiesStatements.get(c);
 			Order order = c.getValidatedOrder();
 			double loss = 0;
 			double gain = 0;
 
 			loss += game.getFixedData().getCompanyCost();
 			loss += order.getResearch();
-			loss += payAndApplyEmployee(c);
+			double salary = payAndApplyEmployee(c);
+			loss += salary;
+			pls.setPayroll(salary);
 			loss += buyMachines(c);
 			loss += c.getAmende();
+			pls.setAmende(c.getAmende());
 			gain += c.getSubvention();
+			pls.setSubvention(c.getSubvention());
 			c.setInvestments(c.getInvestments() + order.getResearch());
 			c.setAmende(0);
 			c.setSubvention(0);
@@ -169,9 +215,14 @@ public class SimulateYearBean implements SimulateYear, Serializable {
 	private void saveChange(Game game) {
 		for (Company c : game.getCompanies()) {
 			c.setValidatedOrder(null);
+			System.out.println("size of past statements tab : "
+					+ c.getPastStatements().size());
+			System.out.println("Statement to save : "
+					+ companiesStatements.get(c));
+			orderManager.saveProfitAndLossStatement(companiesStatements.get(c));
 			companyManager.saveCompany(c);
 		}
 		gameManager.saveGame(game);
+		this.companiesStatements.clear();
 	}
-
 }

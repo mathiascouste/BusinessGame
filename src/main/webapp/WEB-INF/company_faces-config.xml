@@ -49,5 +49,17 @@
       <to-view-id>/company/order.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/company/resultats.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/company/resultats.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fail</from-outcome>
+      <to-view-id>/company/resultats.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
   
 </faces-config>

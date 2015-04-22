@@ -33,6 +33,7 @@ public class Game implements Serializable {
 	private List<Machine> machines;
 	private FixedData fixedData;
 	private FloatingData floatingData;
+	private int currentYear;
 
 	public Game() {
 		this.name = "";
@@ -157,5 +158,15 @@ public class Game implements Serializable {
 
 	public void setFloatingData(FloatingData floatingData) {
 		this.floatingData = floatingData;
+	}
+
+	@Column(name = "CURRENT_YEAR")
+	@NotNull
+	public int getCurrentYear() {
+		return currentYear;
+	}
+
+	public void setCurrentYear(int currentYear) {
+		this.currentYear = currentYear;
 	}
 }
