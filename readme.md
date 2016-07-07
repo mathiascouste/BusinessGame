@@ -10,4 +10,4 @@ Pour lancer le serveur, utilisez la commande suivante :
     
 Nouveau readme ...
 
-lol
+lo
