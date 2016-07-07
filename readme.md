@@ -9,3 +9,5 @@ Pour lancer le serveur, utilisez la commande suivante :
 	mvn clean package tomee:run -DskipTests
     
 Nouveau readme ...
+
+lol
